@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/BG.WCF.TokenService.Data" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/BG.WCF.TokenService.Data" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="TokenObtiene">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="data" nillable="true" type="tns:dataObtiene" />
+      <xs:element minOccurs="0" name="meta" nillable="true" type="tns:meta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TokenObtiene" nillable="true" type="tns:TokenObtiene" />
+  <xs:complexType name="dataObtiene">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="dataObtiene" nillable="true" type="tns:dataObtiene" />
+  <xs:complexType name="meta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="collection" type="xs:boolean" />
+      <xs:element minOccurs="0" name="count" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="meta" nillable="true" type="tns:meta" />
+  <xs:complexType name="TokenValida">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="data" nillable="true" type="tns:dataValida" />
+      <xs:element minOccurs="0" name="meta" nillable="true" type="tns:meta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TokenValida" nillable="true" type="tns:TokenValida" />
+  <xs:complexType name="dataValida">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="aplicacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="canal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="metajson" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="dataValida" nillable="true" type="tns:dataValida" />
+</xs:schema>

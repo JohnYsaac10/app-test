@@ -1,0 +1,191 @@
+﻿@model BG.ContratacionWeb.Pyme.Dtos.ForViewInfoNegocioDto
+@{
+    ViewBag.Title = "Dirección de Negocio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+
+
+@Html.Hidden("urlToPostArea", Url.Action("GetComboForArea", "CreditoPyme"))
+@Html.Hidden("urlPostInfoDom", Url.Action("PostDireccionDomYneg", "CreditoPyme"))
+
+
+@{
+
+    BG.ContratacionWeb.Pyme.Dtos.FromFormInfoDirecNeg Seleccion;
+    if (Model.SeleccionAnterior is BG.ContratacionWeb.Pyme.Dtos.FromFormInfoDirecNeg)
+    {
+        Seleccion = Model.SeleccionAnterior;
+    }
+    else
+    {
+        Seleccion = new BG.ContratacionWeb.Pyme.Dtos.FromFormInfoDirecNeg();
+        Seleccion.ciudad = 0;
+        Seleccion.direccion1 = "";
+        Seleccion.direccion2 = "";
+        Seleccion.parroquia = 0;
+        Seleccion.provincia = 0;
+        Seleccion.referencia = "";
+        Seleccion.telefonoDomNeg = "";
+        Seleccion.aseguradora = 0;
+        Seleccion.isSecure = 0;
+        Seleccion.tipoInmueble = "0";
+    }
+}
+
+
+@Html.AntiForgeryToken()
+
+<section class="bg-form-layout">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-12 stepsDsktp">
+                <ul class="bg-steps-vertical" data-current="2" data-percentage="50">
+                    <li>
+                        <h4>Información personal</h4>
+                        <p>Por favor completa tus datos</p>
+                    </li>
+                    <li>
+                        <h4>Información de tu negocio</h4>
+                        <p>Cuéntanos más de tu negocio</p>
+                    </li>
+                    <li>
+                        <h4>Referencias financieras</h4>
+                        <p>Ingresa los datos de tus cuentas</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-12 stepsMbl">
+                <ul class="bg-steps " data-elements="3" data-current="2" data-percentage="50"></ul>
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="wrapper wrp2">
+                    <div class="bg-card bg-form-layout-inner">
+                        <div class="bg-margin-top-medium">
+                            <form action="#" class="bg-form">
+                                <div class="bg-textfield">
+                                    <label style="text-transform: uppercase;">¿Cuál es la dirección de tu negocio?</label>
+                                    <input id="idDireccionField1" class="bg-textbox" type="text" maxlength="80" value="@(Model.direccion==null?Seleccion.direccion1 : Model.direccion)">
+                                    <p class="bg-helper">Sector, calle principal, etapa, manzana, villa, etc.</p>
+                                    <input id="idDireccionField2" value="@Seleccion.direccion2" class="bg-textbox" type="text" maxlength="80">
+                                    <p class="bg-helper">Urbanización, ciudadela, edificio, piso, departamento, etc.</p>
+                                </div>
+                                <div class="bg-textfield">
+                                    <label>Referencia</label>
+                                    <input class="bg-textbox" id="idReferenciaField" value="@Seleccion.referencia" type="text" maxlength="80">
+                                    <p class="bg-helper">Un local comercial cercano o color de vivienda</p>
+                                </div>
+                                <div class="bg-textfield">
+                                    <label>Provincia</label>
+                                    <div class="bg-dropdown">
+                                        <select id="idSeleccionProvincia">
+                                            <option value="0" disabled selected>Selecciona la provincia</option>
+
+                                            @foreach (var item in Model.comboOptionLocation)
+                                            {
+                                                <option value="@item.IdCodigo" selected="@(item.IdCodigo == Seleccion.provincia)">@item.Descripcion</option>
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="bg-textfield">
+                                    <label>Ciudad</label>
+                                    <div class="bg-dropdown">
+                                        <select id="idSeleccionCiudad">
+
+                                            <option value="0" disabled selected>Selecciona la ciudad</option>
+
+                                            @if (Model.ciudad != null)
+                                            {
+                                                foreach (var item in Model.ciudad)
+                                                {
+                                                    <option value="@item.IdCodigo" selected="@(item.IdCodigo == Seleccion.ciudad)">@item.Descripcion</option>
+                                                }
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="bg-textfield">
+                                    <label>Parroquia</label>
+                                    <div class="bg-dropdown">
+                                        <select id="idSeleccionParroquia">
+
+                                            <option value="0" disabled selected>Selecciona la parroquia</option>
+
+                                            @if (Model.parroquia != null)
+                                            {
+                                                foreach (var item in Model.parroquia)
+                                                {
+                                                    <option value="@item.IdCodigo" selected="@(item.IdCodigo == Seleccion.parroquia)">@item.Descripcion</option>
+                                                }
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="bg-infoForm">
+                                    <label>
+                                        Teléfono convencional
+                                    </label>
+                                    <input id="idTelefonoDom" class="bg-textbox" pattern="[0-9]*" maxlength="9" value="@Seleccion.telefonoDomNeg" type="text" data-filter="only-numbres" data-limit="">
+                                    <br>
+                                    <p class="bg-helper">Ejemplo: 04 2565 634</p>
+                                </div>
+
+
+
+
+                                <div class="bg-textfield">
+                                    <label>¿El inmueble es propio o alquilado?</label>
+                                    <div class="bg-dropdown">
+                                        <select id="idSeleccionTipoInmueble">
+                                            <option value="" disabled selected>Selecciona la el tipo de inmueble</option>
+                                            @foreach (var item in Model.tipoInmueble)
+                                            {
+                                                <option value="@item.IdCodigo" selected="@(item.IdCodigo.ToString() == Seleccion.tipoInmueble)">@item.Descripcion</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="bg-textfield">
+                                    <label style="text-transform: uppercase;">¿Tienes asegurado tu negocio?</label>
+                                    <div class="bg-dropdown">
+                                        <select id="idSeleccionIsCare">
+                                            <option selected="@(Seleccion.isSecure == 1)" value="1">Sí</option>
+                                            <option selected="@(Seleccion.isSecure == 0)" value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="bg-textfield">
+                                    <label>Elige con qué empresa</label>
+                                    <div class="bg-dropdown">
+                                        <select id="idSeleccionAseguradora">
+                                            <option value="0" disabled selected>Selecciona la Aseguradora</option>
+                                            
+                                            @foreach (var item in Model.aseguradora)
+                                            {
+                                                <option value="@item.IdCodigo" selected="@(item.IdCodigo == Seleccion.aseguradora)">@item.Descripcion</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                    <a id="idBtnContinueToNegCert" name="@Url.Action("CertificacionNegocio", "CreditoPyme")" class="bg-button bg-primary"><span>Continuar</span></a>
+                                </div>
+                                <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                    <a href="@Url.Action("ClientesProveedores", "CreditoPyme")" class=" linkBG02">Volver</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<script src="~/Scripts/romads.min.js"></script>

@@ -1,0 +1,43 @@
+﻿@model BG.ContratacionWeb.Pyme.Models.DatosClientePy
+@{
+    ViewBag.Title = "ResumenFinal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Hidden("UrlToConsultaHost", Url.Action("ConsultaHostResumenFinal", "CreditoPyme"));
+@Html.Hidden("UrlSolicitarOTP", Url.Action("CreaCodigoOTP", "CreditoPyme"));
+@Html.Hidden("UrlValidarOTP", Url.Action("ValidaOTP", "CreditoPyme"));
+@Html.Hidden("UrlAprobacion", Url.Action("AprobacionSolicitud", "CreditoPyme"));
+@Html.AntiForgeryToken()
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+<section class="bg-form-layout">
+    <div class="wrapper wrp2">
+        <div class="bg-card bg-form-layout-inner">
+            <div class="bg-margin-top-medium">
+                <h4 style="text-align: center;">
+                    <span style="font-size: 1.8rem;">
+                        Tu solicitud de crédito PYME fue aprobada por:
+                    </span>
+                </h4>
+                <h2 style="font-size: 3.5rem; text-align: center;">
+                    $ 15,000
+                </h2>
+                <hr>
+                <p>
+                    Acércate a una de nuestra agencias para firmar el contrato y proceder con el desembolso.
+                </p>
+                <p>
+                    Hemos enviado a tu correo el detalle de tu crédito.
+                </p>
+            </div>
+            <div class="bg-margin-top-medium" style="text-align: center;">
+                <a href="#" class="bg-button bg-primary" bg-modal="verificacionOTP" style="width: 80%">
+                    <span>Agenda tu cita para la firma aquí</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+

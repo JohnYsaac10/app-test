@@ -1,0 +1,170 @@
+﻿@model BG.ContratacionWeb.Pyme.Dtos.DatosForSulicitudViewDto
+
+@{
+    ViewBag.Title = "Solicitud";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Hidden("UrlSolicitarPost", Url.Action("Solicitud", "SobreGiro"))
+@Html.Hidden("UrlDetalleSolicitud", Url.Action("DetalleSolicitud", "SobreGiro"))
+
+@Html.AntiForgeryToken()
+
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+<script src="~/Content/js/datepicker/jquery-ui.min.js"></script>
+<script src="~/Content/js/MoneyMask.js"></script>
+<link href="~/Content/css/datepicker/jquery-ui.css" rel="stylesheet" />
+
+
+<section class="bg-form-layout">
+    @{ 
+        string hlds = "";
+
+        string cantidadS = "";
+        string cuentaS = "";
+        string fechaS = "";
+        string tipoSobregiroS = "";
+        if (Model.DataPreset != null)
+        {
+            cantidadS = Model.DataPreset.Cantidad;
+            cuentaS = Model.DataPreset.Cuenta.Remove(Model.DataPreset.Cuenta.Length - 2);
+            fechaS = Model.DataPreset.FechaPago;
+            tipoSobregiroS = Model.DataPreset.TipoSobregiro;
+        }
+    }
+    @if (Model.Holidays != null && Model.Holidays.Length > 0)
+    {
+        foreach (var date in Model.Holidays)
+        {
+            hlds = hlds + date.Date + ",";
+        }
+
+    }
+
+    <input style="display:none" id="feriados" value="@hlds">
+    <input style="display:none" id="rangoId" value="@Model.MontoRango">
+    
+    <div class="wrapper wrp2">
+        <div class="bg-card bg-form-layout-inner">
+            <div class="bg-margin-top-medium">
+                <h4>Solicitud de sobregiro</h4>
+                <p>
+                    Ingresa tus datos y solicita un sobregiro para tu cuenta corriente.
+                </p>
+            </div>
+            <div class="bg-margin-top-medium bg-margin-bottom-medium">
+                <form action="#" class="bg-form">
+                    <div class="bg-textfield">
+                        <label>¿Para qué cuenta es el sobregiro?</label>
+                        <div class="bg-dropdown">
+                            <select id="select_cuenta_id">
+                                <option disabled selected value="0">Selecciona la cuenta</option>
+                                    @foreach (var x in Model.Cuentas){
+                                        <option value="@x.NumCuenta-@x.TipoCuenta" selected="@(cuentaS==x.NumCuenta)">@x.NumCuenta</option>
+                                    }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="bg-textfield">
+                        <label>¿Qué cantidad deseas?</label>
+                        <input class="bg-textbox" pattern="" id="cantidad_solicitada_id" inputmode="" value="@cantidadS" type="text" maxlength="8" data-filter="" data-limit="" autocomplete="off" placeholder="Ingresa el monto del sobregiro">
+                    </div>
+                    <div class="bg-textfield">
+                        <label>¿Hasta qué fecha necesitas el sobregiro?</label>
+                        <input id="fcplazo" class="bg-textbox" autocomplete="off" value="@fechaS">
+                        <p class="bg-helper">Puedes solicitarlo hasta por 30 días.</p>
+                    </div>
+                    <div class="bg-textfield">
+                        <label>Elige el tipo de sobregiro</label>
+                        <p>
+                            <input type="radio" id="choice-1" name="tipoSobregiro" value="82" autocomplete="off" checked="@(tipoSobregiroS=="82")">
+                            <label for="choice-1">
+                                Sobregiro<br>
+                                <span style="font-size: 12px; color: #999">
+                                    Solicita fondos que no tienes disponibles en tu cuenta.
+                                </span>
+                            </label>
+                        </p>
+                        <p>
+                            <input type="radio" id="choice-2" name="tipoSobregiro" value="85" autocomplete="off" checked="@(tipoSobregiroS=="85")">
+                            <label for="choice-2">
+                                Pago sobre depósito<br>
+                                <span style="font-size: 12px; color: #999">
+                                    Solicita un adelanto de fondos sobre cheques depositados en tu cuenta.
+                                </span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="bg-margin-top-medium bg-margin-bottom-medium">
+                        <a id="btn_solicitar_id" class="bg-button bg-primary"><span>Solicitar</span></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<script type="text/javascript">
+	$(function() {
+        $('#cantidad_solicitada_id').maskMoney({prefix:'$ ',precision:0});
+                                })
+
+
+	$.datepicker.regional['es'] = {
+        closeText: 'Cerrar',
+        prevText: '<Ant',
+        nextText: 'Sig>',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+		   
+    var holidays = [];
+    $(function () {
+                                var contenido = $("#feriados").val();
+                                if (contenido != "") {
+                                    var festivos = contenido.split(',');
+                                    for(var i = 0; i < festivos.length-1; i++){
+                                        holidays.push(festivos[i]);
+                                    }
+                                }
+                            });
+	
+
+    var currentTime = new Date();
+                            var dateToday = new Date();
+                            var endDate = new Date(currentTime.getFullYear(), currentTime.getMonth() +1, 0);
+                            var dates = $("#fcplazo").datepicker({
+                                dateFormat: 'dd/mm/yy',
+	    defaultDate: "+1w",
+	    changeMonth: true,
+	    numberOfMonths: 1,
+	    minDate: dateToday,
+	    maxDate: endDate,
+	    beforeShowDay: function (date) {
+                                    var string = jQuery.datepicker.formatDate('dd/mm/yy', date);
+                                    var noWeekend = $.datepicker.noWeekends(date);
+                                    if (noWeekend[0]) {
+                                        return [$.inArray(string, holidays) == -1];
+                                    }
+                                    else
+                                        return noWeekend;
+                                }
+                            });
+    
+</script>
+

@@ -1,0 +1,273 @@
+﻿@using BG.ContratacionWeb.Pyme.Helpers
+@model BG.ContratacionWeb.Pyme.Dtos.DatosForSimuladorViewDto
+
+@{
+    ViewBag.Title = "Simulador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ 
+
+    BG.ContratacionWeb.Pyme.Dtos.FromFormSolicitudCreditoDto Seleccion;
+    if(Model.SeleccionAnterior is BG.ContratacionWeb.Pyme.Dtos.FromFormSolicitudCreditoDto)
+    {
+        Seleccion = Model.SeleccionAnterior;
+    }
+    else
+    {
+        Seleccion = new BG.ContratacionWeb.Pyme.Dtos.FromFormSolicitudCreditoDto();
+        Seleccion.amortizacion = "FRANCESA";
+        Seleccion.cuota = "";
+        Seleccion.fechaPago = "";
+        Seleccion.diaDePago = "";
+        Seleccion.destinoCredito = new BG.ContratacionWeb.Pyme.Dtos.CatalogoReduce();
+        Seleccion.destinoCredito.idCodigo = 0;
+        Seleccion.modoDePago = new BG.ContratacionWeb.Pyme.Dtos.CatalogoReduce();
+        Seleccion.modoDePago.idCodigo = 0;
+        Seleccion.plazoCredito = new BG.ContratacionWeb.Pyme.Dtos.CatalogoReduce();
+        Seleccion.plazoCredito.idCodigo = 0;
+        Seleccion.monto = "0";
+    }
+}
+
+@Html.Hidden("UrlCalcularPost", Url.Action("Calcular", "CreditoPyme"))
+
+
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+<script src="~/Content/js/MoneyMask.js"></script>
+<script src="~/Content/js/datepicker/jquery-ui.min.js"></script>
+<link href="~/Content/css/datepicker/jquery-ui.css" rel="stylesheet" />
+
+
+<input style="display:none" type="text" value="@Model.Rango.minDias-@Model.Rango.maxDias" id="idRangeCalendarDays" />
+<input style="display:none" type="text" value="@Model.Rango.valorMin-@Model.Rango.valorMax" id="idRangeMonto" />
+
+@Html.AntiForgeryToken()
+
+<section class="bg-form-layout">
+    <div class="wrapper wrp2">
+        <div class="bg-card bg-form-layout-inner">
+            <div class="bg-margin-top-medium">
+                <h4 style="text-transform: uppercase;">Calcula tu crédito PYME</h4>
+                <p>
+                    Simula tu crédito y solicítalo en pocos minutos
+                </p>
+            </div>
+            <div class="bg-margin-top-medium">
+                <form action="#" class="bg-form">
+                    <div class="bg-textfield">
+                        <label>¿Cuál es el monto que necesitas financiar?</label>
+                        <input class="bg-textbox" pattern="" id="cantidad_solicitada_id" value="@Seleccion.monto.ToDollarWithoutDecimal()" type="text" data-filter="[0-9]*" maxlength="8" placeholder="Ingresa el monto">
+                        <p class="bg-helper">Puedes solicitar desde @Model.Rango.valorMin.ToDolllars() hasta @Model.Rango.valorMax.ToDolllars()</p>
+                    </div>
+                    <div class="bg-textfield">
+                        <label>¿Cúal es el destino del crédito?</label>
+                        <div class="bg-dropdown">
+                            <select id="idDestinoCredito">
+                                <option value="0" disabled selected>Selecciona una opción</option>
+                                @foreach (var item in Model.DestinosCredito)
+                                {
+                                    <option value="@item.IdCodigo" selected="@(Seleccion.destinoCredito.idCodigo==item.IdCodigo)">@item.Descripcion</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="bg-textfield">
+                        <label>¿Cómo vas a pagar tu crédito?</label>
+                        <div class="bg-dropdown">
+                            <select id="idModoPago">
+                                @foreach (var item in Model.ModosDePago)
+                                {
+                                    <option value="@item.IdCodigo" selected="@(Seleccion.modoDePago.idCodigo==item.IdCodigo)">@item.Descripcion</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+
+
+
+                    <div id="idInabilitarBoxCalPla" style="display:none">
+                        <div class="bg-textfield">
+                            <label>¿Cuántos meses quieres de plazo?</label>
+                            <div class="bg-dropdown">
+                                <select id="idPlazoCredito">
+                                    @foreach (var item in Model.PlazosCredito)
+                                    {
+                                        <option value="@item.IdCodigo" selected="@(Seleccion.modoDePago.idCodigo==item.IdCodigo)">@item.Descripcion</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="bg-textfield">
+                            <label>Elige el tipo de amortización</label>
+                            <p>
+                                <input type="radio" id="francesa" name="amortizacion" value="FRANCESA" checked>
+                                <label for="francesa">
+                                    Francesa<br>
+                                    <span style="font-size: 12px; color: #999">
+                                        Cuotas iguales a lo largo del préstamo
+                                    </span>
+                                </label>
+                            </p>
+                            <p>
+                                <input type="radio" id="alemana" name="amortizacion" value="ALEMANA" checked="@(Seleccion.amortizacion=="ALEMANA")">
+                                <label for="alemana">
+                                    Alemana<br>
+                                    <span style="font-size: 12px; color: #999">
+                                        Cuotas decrecientes y variables a lo largo del crédito.
+                                    </span>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    
+
+
+                    <div id="idBoxCalendarioHide">
+                        <div class="bg-textfield">
+                            <label>¿Qué día prefieres pagar tu cuota?</label>
+                            <input class="bg-textbox" id="idDiaPago" value="@Seleccion.fechaPago" data-limit="2" style="width: 30%; padding: 1rem;">
+                            @*<p class="bg-helper" style="margin-left: 5px;">de cada mes</p>*@
+                        </div>
+                    </div>
+                    
+                    <div id="idBoxDiaHide" style="display:none">
+                        <div class="bg-textfield">
+                            <label>¿Qué día prefieres pagar tu cuota?</label>
+                            <input class="bg-textbox" type="number" id="idDiaPagoNumero" value="@Seleccion.diaDePago" min="1" max="30" data-limit="2" style="width: 30%; padding: 1rem;">
+                            <p class="bg-helper" style="margin-left: 5px;" id="idHelperMes">de cada mes</p>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="bg-textfield">
+                        <label>Tasa de interés</label>
+                        <p class="bg-helper">Se aplicará una tasa de interés nominal de @Model.TasaNominal%, equivalente a una tasa efectiva de @Model.TasaEfectiva%</p>
+                    </div>
+                    <div class="bg-textfield">
+                        <label>Seguros</label>
+                        <p class="bg-helper">La cuota de tu crédito incluirá el costo de los seguros de Desgravamen y Cesantía. Si deseas cambiar esta condición, solicita tu crédito en una de nuestras agencias.</p>
+                    </div>
+                    <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                        <a href="#" class="bg-button bg-primary" id="btnCalcularCP"><span>Calcular</span></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="bg-modal wrp2 modalOTP" id="cuotaMensual" style="text-align: center;">
+        <div class="bg-textfield" style="text-align: center;">
+            <h4 style="color: #012244; display: none" id="idTitleWhenMen">Cuota mensual</h4>
+            <h4 style="color: #012244" id="idTitleWheneAlVenc">Total a cancelar</h4>
+            <hr>
+            <h2 style="color: #7C8D9E; font-size: 4.5rem">$ <span id="idCuotaCalculada"></span></h2>
+            <div class="bg-textfield" style="text-align: center;">
+                <a href="@Url.Action("PdfDownload", "CreditoPyme")" target="_blank" id="idLinkTablaAmort" style="display:none; font-size: 1.4rem">Ver tabla de amortización</a>
+            </div>
+            <hr>
+            <h4 class="dtllcm">¿Deseas solicitar tu crédito ahora?</h4>
+        </div>
+        <div class="bg-textfield" style="text-align: center;">
+            <a href="@Url.Action("InfoPersonal", "CreditoPyme")" class="bg-button bg-primary" style="margin-top: 1rem; width: 60%;"><span>Sí, quiero solicitarlo</span></a>
+            <a href="@Url.Action("Simulador", "CreditoPyme")" class="bg-button bg-secondary" style="margin-top: 2rem; width: 60%;"><span>Realizar nueva simulación</span></a>
+        </div>
+        <hr>
+        <div class="bg-textfield">
+            <h5 style="color: #7C8D9E; margin: 10px 0; font-size: 1.4rem">CONDICIONES</h5>
+            <p class="txtGray50 txtGray50mfs">
+                Este valor es referencial, aplica si contratas el crédito hoy.
+            </p>
+            @if (!Model.TieneCuentaAhorro)
+            {
+                <p class="txtGray50 txtGray50mfs">
+                     Abriremos una cuenta de ahorros para acreditar tu financiamiento.
+                </p>
+            }
+            <p class="txtGray50 txtGray50mfs">
+                Sujeto a gastos legales e impuestos detallados en la tabla de amortización.
+            </p>
+            <p class="txtGray50 txtGray50mfs">
+                Incluye seguro de desgravamen.
+            </p>
+        </div>
+    </div>
+</section>
+
+<script src="~/Content/js/atomicbg.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+        $('#cantidad_solicitada_id').maskMoney({prefix:'$ ',precision:0});
+                                })
+
+
+	$.datepicker.regional['es'] = {
+        closeText: 'Cerrar',
+        prevText: '<Ant',
+        nextText: 'Sig>',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+
+    var holidays = [];
+    $(function () {
+        var contenido = $("#feriados").val();
+        if (contenido) {
+            var festivos = contenido.split(',');
+            for (var i = 0; i < festivos.length - 1; i++) {
+                holidays.push(festivos[i]);
+            }
+        }
+    });
+
+    var dateMin = new Date();
+    var maxDays = @Model.Rango.minDias + @Model.Rango.maxDias;
+    dateMin.setDate(dateMin.getDate() + @Model.Rango.minDias);
+    var dates = $("#idDiaPago").datepicker({
+        dateFormat: 'dd/mm/yy',
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 1,
+        minDate: dateMin,
+        maxDate: '+' + maxDays + 'd',
+        beforeShowDay: function (date) {
+            var string = jQuery.datepicker.formatDate('dd/mm/yy', date);
+            var noWeekend = $.datepicker.noWeekends(date);
+            if (noWeekend[0]) {
+                return [$.inArray(string, holidays) == -1];
+            }
+            else
+                return noWeekend;
+        }
+    });
+
+    $("#idDiaPagoNumero").keyup(function () {
+        var valorDia = this.value;
+        if (+valorDia > 30 || +valorDia<=0)
+            $(this).val("");
+    });
+
+    $(document).ready(function () {
+        
+        OnChangeDestinoCredito();
+
+        OnChangeModoPago();
+        
+    });
+
+</script>

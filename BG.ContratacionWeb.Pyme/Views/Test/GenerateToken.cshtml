@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "GenerateToken";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Hidden("UrltoPostToken", Url.Action("GenerateToken", "Test"))
+@Html.Hidden("UrltoSolicitud", Url.Action("Index", "TokenAccessValidation"))
+
+<script src="~/Content/js/jquery.min.js"></script>
+
+<section class="bg-form-layout">
+    <div class="wrapper wrp2">
+        <div class="bg-card bg-form-layout-inner">
+            <div class="bg-margin-top-medium bg-margin-bottom-medium">
+                <form action="#" id="form-field" class="bg-form">
+                    <div class="bg-textfield ">
+                        <!-- <label>Identificación</label> -->
+                        <input class="bg-textbox" id="identificacion_id" type="text" placeholder="identificación">
+                    </div>
+                    <div class="bg-textfield ">
+                        <!-- <label>Tipo Identificación</label> -->
+                        <input class="bg-textbox" id="tipoIdentificacion_id" type="text" placeholder="tipo identificación">
+                    </div>
+                    <div class="bg-textfield ">
+                        <!-- <label>Producto</label> -->
+                        <input class="bg-textbox" id="producto_id" type="text" placeholder="producto">
+                    </div>
+                    <div class="bg-textfield ">
+                        <!-- <label>Canal</label> -->
+                        <input class="bg-textbox" id="canal_id" type="text" placeholder="canal">
+                    </div>
+                    <div class="bg-textfield ">
+                        <!-- <label>Aplicación</label> -->
+                        <input class="bg-textbox" id="aplicacion_id" type="text" placeholder="aplicación">
+                    </div>
+                    <div class="bg-textfield ">
+                        <!-- <label>Producto Padre</label> -->
+                        <input class="bg-textbox" id="productoPadre_id" type="text" placeholder="producto padre (opcional)">
+                    </div>
+                    <div class="bg-textfield ">
+                        <!-- <label>Usuario</label> -->
+                        <input class="bg-textbox" id="usuario_id" type="text" placeholder="usuario (opcional)">
+                    </div>
+
+
+
+                    <div class="bg-margin-top-medium bg-margin-bottom-medium">
+                        <a id="crearToken_id" class="bg-button bg-primary"><span>Crear Token</span></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+
+    $(document).ready(function () {
+    
+        $("#crearToken_id").click(GenerarToken);
+
+        function GenerarToken() {
+
+            var obj = createObjToSend();
+            var url = $("#UrltoPostToken").val();
+            
+            GeneralPost(url, obj, function (resp) {
+
+                if(resp.errorCode === "503")
+                    alertify.error("servicio no disponible")
+                if (resp.errorCode === "401")
+                    alertify.error("No autorizado")
+                if (resp.errorCode === "200") {
+                    var urlToRedict = $("#UrltoSolicitud").val();
+                    window.location.href = urlToRedict + resp.data;
+                }
+            });
+        }
+
+
+
+        function GeneralPost(postTo, objToSend, CBfuncion) {
+            $.ajax({
+                type: "POST",
+                traditional: true,
+                cache: false,
+                url: postTo,
+                context: document.body,
+                data: objToSend,
+                success: function (result) {
+                    CBfuncion(result);
+                },
+                error: function (xhr) {
+
+                }
+            });
+        }
+
+        function createObjToSend(){
+            var DatosToSend = {};
+            var MetaData = {};
+
+            var canal = $("#canal_id").val();
+            DatosToSend["Canal"] = canal;
+            DatosToSend["Aplicacion"] = $("#aplicacion_id").val();
+
+                MetaData["Canal"] = canal;
+                MetaData["Identificacion"] = $("#identificacion_id").val();
+                MetaData["TipoIdentificacion"] = $("#tipoIdentificacion_id").val();
+                MetaData["Producto"] = $("#producto_id").val();
+
+
+           DatosToSend["MetaJson"] = JSON.stringify(MetaData)
+
+           return DatosToSend;
+        }
+    });
+    
+
+
+
+</script>

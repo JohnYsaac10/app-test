@@ -1,0 +1,181 @@
+﻿@model BG.ContratacionWeb.Pyme.Models.Anyo
+
+@{
+    ViewBag.Title = "TusBalances";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Hidden("urlToPostFiles", Url.Action("PostBalances", "CreditoPyme"))
+@Html.Hidden("urlToGenerarIndicadores", Url.Action("GenerarVariacionesIndicadoresFlujoEfectivo", "CreditoPyme"))
+
+
+<link href="~/Content/icomoon/style.css" rel="stylesheet" />
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+
+@Html.AntiForgeryToken()
+
+<style type="text/css">
+    .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .btn {
+        /*border: 2px solid #e91771;*/
+        color: #fff;
+        background-color: #7C8D9E;
+        padding: 2px 10px;
+        /*border-radius: 8px;*/
+        font-size: 14px;
+        /*font-weight: bold;*/
+    }
+
+    .success {
+        background-color: #00ace4 !important;
+        cursor: not-allowed;
+    }
+
+    .upload-btn-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+
+    .fas {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    }
+</style>
+
+
+<section class="bg-form-layout">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-12">
+                <ul class="bg-steps-vertical" data-current="2" data-percentage="50">
+                    <li>
+                        <h4>Información personal</h4>
+                        <p>Por favor completa tus datos</p>
+                    </li>
+                    <li>
+                        <h4>Información de tu negocio</h4>
+                        <p>Cuéntanos más de tu negocio</p>
+                    </li>
+                    <li>
+                        <h4>Referencias financieras</h4>
+                        <p>Ingresa los datos de tus cuentas</p>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="wrapper wrp2">
+                    <div class="bg-card bg-form-layout-inner">
+                        <div class="bg-margin-top-medium">
+                            <div class="bg-textfield">
+                                <label style="text-transform: uppercase;">Comparte tus balances financieros <i class="fas fa-question" style="background: #e91771; padding: 4px 6px; color: #fff; font-size: 1rem; border-radius: 15px;" data-toggle="tooltip" title="Encuéntralos en el sitio web del SRI como el formulario 102 con código 1101"></i> </label>
+                                <p>
+                                    Debes subir los PDF originales de tu declaración de Impuesto a la Renta Personas Naturales.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bg-margin-top-medium">
+                            <table cellpadding="0" cellspacing="0" border="0" style="width: 50%" align="center">
+                                <tr>
+                                    <td style="width: 50%; text-align: center;">
+                                        <p style="color: #e91771; font-weight: 600;">Año</p>
+                                    </td>
+                                    <td style="width: 50%; text-align: center;">&nbsp;</td>
+                                </tr>
+                                @if (Model.TieneDataAnyo1 == "0")
+                                {
+                                    <tr style="border-bottom: 1px solid #EBECEE">
+                                        <td style="width: 50%; text-align: center; padding-top: 10px;">
+                                            <p>@Model.Anyo1</p>
+                                        </td>
+                                        <td style="width: 50%; text-align: center;">
+                                            <div class="upload-btn-wrapper">
+                                                <button id="btn-@Model.Anyo1" class="btn"><i id="@Model.Anyo1" class="fas fa-upload"></i></button>
+                                                <input onchange="" id="documento1" type="file" name="@Model.Anyo1" accept="application/pdf" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                
+                                @if (Model.TieneDataAnyo2 == "0")
+                                {
+                                    <tr style="border-bottom: 1px solid #EBECEE">
+                                        <td style="width: 50%; text-align: center; padding-top: 10px;">
+                                            <p>@Model.Anyo2</p>
+                                        </td>
+                                        <td style="width: 50%; text-align: center;">
+                                            <div class="upload-btn-wrapper">
+                                                <button id="btn-@Model.Anyo2" class="btn"><i id="@Model.Anyo2" class="fas fa-upload"></i></button>
+                                                <input onchange="" id="documento2" type="file" name="@Model.Anyo2" accept="application/pdf" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                
+                                @if (Model.TieneDataAnyo3 == "0")
+                                {
+                                    <tr style="border-bottom: 1px solid #EBECEE">
+                                        <td style="width: 50%; text-align: center; padding-top: 10px;">
+                                            <p>@Model.Anyo3</p>
+                                        </td>
+                                        <td style="width: 50%; text-align: center;">
+                                            <div class="upload-btn-wrapper">
+                                                <button id="btn-@Model.Anyo3" class="btn"><i id="@Model.Anyo3" class="fas fa-upload"></i></button>
+                                                <input onchange="" id="documento3" type="file" name="@Model.Anyo3" accept="application/pdf" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+
+                            @*@if (Model.Environment.Equals("development", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                <div class="bg-margin-top-medium" style="text-align: center;">
+                                    <a href="@Url.Action("DeclaracionIva", "CreditoPyme")" class="bg-button bg-primary">
+                                    <span>Continuar</span>
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="bg-margin-top-medium" style="text-align: center;">
+                                    <a href="#" id="idContinueToDeclaracionIva" class="bg-button bg-primary">
+                                    <span>Continuar</span>
+                                    </a>
+                                </div>
+                            }*@
+
+                            <div class="bg-margin-top-medium" style="text-align: center;">
+                                <a href="#" id="idBtnFinSubida" class="bg-button bg-primary">
+                                    <span>Continuar</span>
+                                </a>
+                            </div>
+                            
+                            <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                <a href="@Url.Action("ResumenInfoPersonal", "CreditoPyme")" class=" linkBG02">Volver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/romads.min.js"></script>

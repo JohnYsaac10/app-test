@@ -1,0 +1,481 @@
+﻿@using BG.ContratacionWeb.Pyme.Helpers
+@model BG.ContratacionWeb.Pyme.Dtos.ForViewEstadoCivilDto
+@{
+    ViewBag.Title = "Estado Civil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Hidden("urlToInfoDomicilio", Url.Action("InfoDomicilio", "CreditoPyme"))
+
+<link href="~/Content/icomoon/style.css" rel="stylesheet" />
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+
+@Html.AntiForgeryToken()
+
+
+<section class="bg-form-layout">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-12 stepsDsktp">
+                <ul class="bg-steps-vertical" data-current="1" data-percentage="50">
+                    <li>
+                        <h4>Información personal</h4>
+                        <p>Por favor completa tus datos</p>
+                    </li>
+                    <li>
+                        <h4>Información de tu negocio</h4>
+                        <p>Cuéntanos más de tu negocio</p>
+                    </li>
+                    <li>
+                        <h4>Referencias financieras</h4>
+                        <p>Ingresa los datos de tus cuentas</p>
+                    </li>
+                    <li>
+                        <h4>Información garante</h4>
+                        <p>Cuéntanos quién será tu garante</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-12 stepsMbl">
+                <ul class="bg-steps " data-elements="3" data-current="1" data-percentage="50"></ul>
+            </div>
+            
+            <div class="col-lg-8 col-12">
+                <div class="wrapper wrp2">
+                    <div class="bg-card bg-form-layout-inner">
+                        <div class="bg-margin-top-medium">
+
+                            @if(Model.IdEstadoCivil != 2452) { 
+                            <!-- soltero  -->
+                            <div id="idNoClientePantalla1">  <!-- cambiar el display none  -->
+                                <div class="bg-infoForm">
+                                    <label>
+                                        ¿Cuál es tu estado civil?
+                                    </label>
+                                    <p>
+                                        @Model.EstadoCivilDesc.ToUpperFirstLetter()
+                                    </p>
+                                </div>
+                                <div class="bg-infoForm">
+                                    <label>
+                                        ¿Es correcta esta información?
+                                    </label>
+                                    <a id="idNoClienteECsi" href="#" class="bg-button bg-primary" style="width: auto;">  <!-- validar con registro civil -->
+                                        <span>Sí</span>
+                                    </a>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <a href="#" id="idNoClienteECno" class="bg-button bg-primary" style="width: auto;">
+                                        <span>No</span>
+                                    </a>
+                                </div>
+
+                                <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                    <a href="@Url.Action("InfoPersonal", "CreditoPyme")" class=" linkBG02">Volver</a>
+                                </div>
+                            </div>
+                            
+                            <!--     +++++++++++++++++++++++++++++++++++++++      -->
+                            <div id="idNoClientePantalla2" style="display:none">
+                                <div class="bg-textfield">
+                                    <label>
+                                        ¿Cuál es tu estado civil?
+                                    </label>
+                                    <div class="bg-dropdown">
+                                        <select id="idNoClienteSeleccionEC">
+                                            @foreach (var item in Model.estados)
+                                            {
+                                                <option value="@item.IdCodigo" autocomplete="off" selected="@(item.IdCodigo == Model.IdEstadoCivil)">@item.Descripcion.ToUpperFirstLetter()</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <label id="idNoClienteSepBienes" class="bg-checkfield" for="checkbox" style="padding: 0; display:none;">
+                                    <div class="bg-col">
+                                        <div class="bg-checkbox">
+                                            <input type="checkbox" id="idNoClientecheckboxSepB" autocomplete="off">
+                                            <label for="idNoClientecheckboxSepB"></label>
+                                        </div>
+                                    </div>
+                                    <div class="bg-col">
+                                        <label for="idNoClientecheckboxSepB">Con separación de bienes</label><br>
+                                    </div>
+                                </label>
+
+                                <div id="idNoClienteCedCony" class="bg-textfield" style="display:none">
+                                    <label>¿Cuál es el número de cédula de tu cónyuge?</label>
+                                    <input class="bg-textbox" pattern="" id="idNoClienteNCed" inputmode="" value="" type="number" data-limit="10" autocomplete="off">
+                                </div>
+
+                                <div class="bg-margin-top-medium" style="text-align: center;">
+                                    <a href="#" id="idNoClienteContinuar" class="bg-button bg-primary">
+                                        <span>Continuar</span>
+                                    </a>
+                                </div>
+                                <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                    <a href="#" id="idNoClienteVolverPan1" class=" linkBG02">Volver</a>
+                                </div>
+                            </div>
+
+                            <!--     ****************************************      -->
+                            <div id="idNoClientePantalla3" style="display:none">
+                                <div class="bg-infoForm">
+                                    <label>
+                                        ¿Cuál es tu estado civil?
+                                    </label>
+                                    <p>
+                                        Casado
+                                    </p>
+                                </div>
+                                <div class="bg-infoForm">
+                                    <label>
+                                        Nombre de cónyuge
+                                    </label>
+                                    <p>
+                                        Carla Rocío Benalcazar Alcívar
+                                    </p>
+                                </div>
+                                <div class="bg-infoForm">
+                                    <label>
+                                        Fecha de nacimiento
+                                    </label>
+                                    <p>
+                                        15/10/1986
+                                    </p>
+                                </div>
+                                <div class="bg-infoForm">
+                                    <label>
+                                        Nacionalidad
+                                    </label>
+                                    <p>
+                                        Ecuatoriana
+                                    </p>
+                                </div>
+                                <div class="bg-infoForm">
+                                    <label>Celular</label>
+                                    <p>
+                                        099xxxx250
+                                    </p>
+                                </div>
+                                <div class="bg-textfield">
+                                    <label>¿Cuál es su correo electrónico?</label>
+                                    <input class="bg-textbox" id="idNoClienteEmailCony" type="text" data-limit="50">
+                                </div>
+                                <div class="bg-margin-top-medium" style="text-align: center;">
+                                    <a href="#" id="idNoClienteContFinal" class="bg-button bg-primary">
+                                        <span>Continuar</span>
+                                    </a>
+                                </div>
+                                <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                    <a href="#" id="idNoClienteVolverFinal" class=" linkBG02">Volver</a>
+                                </div>
+                            </div>
+                            }
+
+
+
+                            <!-- Casado -->
+                            @if (Model.IdEstadoCivil == 2452) {
+                            <div id="idBoxCasado">
+                                <div class="bg-infoForm">
+                                    <label>
+                                        ¿Cuál es tu estado civil?
+                                    </label>
+                                    <p>
+                                        @Model.EstadoCivilDesc.ToUpperFirstLetter()
+                                    </p>
+                                </div>
+                                <div class="bg-infoForm">
+                                    <label>
+                                        Nombre de cónyuge
+                                    </label>
+                                    <p>
+                                        @Model.EstadoCivil.cyg_nombre_presenta.ToUpperFirstLetter()
+                                    </p>
+                                </div>
+
+                                <div class="bg-infoForm">
+                                    <label>
+                                        ¿Es correcta esta información?
+                                    </label>
+                                    <a href="@Url.Action("InfoDomicilio", "CreditoPyme")" class="bg-button bg-primary" style="width: auto;">  <!--validar-->
+                                        <span>Sí</span>
+                                    </a>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <a href="#" id="idCasadoECno" class="bg-button bg-primary" style="width: auto;"> <!--validar-->
+                                        <span>No</span>
+                                    </a>
+                                </div>
+                                <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                    <a href="@Url.Action("InfoPersonal", "CreditoPyme")" class=" linkBG02">Volver</a>
+                                </div>
+                            </div>
+                            
+                            <!--*******************************************-->
+                            <div id="idBoxPantalla2" style="display:none">
+                                <div class="bg-textfield">
+                                    <label>
+                                        ¿Cuál es tu estado civil?
+                                    </label>
+                                    <div class="bg-dropdown">
+                                        <select id="idCasadoSeleccionEC">
+                                            @foreach (var item in Model.estados)
+                                            {
+                                                <option value="@item.IdCodigo" selected="@(item.IdCodigo == Model.IdEstadoCivil)">@(item.Descripcion.ToUpperFirstLetter()=="Casado/a" ? item.Descripcion.ToUpperFirstLetter() + " con alguien distinto" : item.Descripcion.ToUpperFirstLetter())</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="bg-margin-top-medium" style="text-align: center;">
+                                    <a href="#" id="idCasadoContPantalla3" class="bg-button bg-primary">
+                                        <span>Continuar</span>
+                                    </a>
+                                </div>
+                                <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                    <a href="#" id="idCasadoVolverPantalla1" class=" linkBG02">Volver</a>
+                                </div>
+
+                            </div>
+
+                            <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+                            <div id="idCasadoPantalla3" style="display:none">
+                                <div class="bg-textfield">
+                                    <label>
+                                        ¿Cuál es tu estado civil?
+                                    </label>
+                                    <p>
+                                        Casado con alguien distinto
+                                    </p>
+                                </div>
+                                <div class="bg-textfield">
+                                    <label>¿Cuál es el número de cédula de tu cónyuge?</label>
+                                    <input class="bg-textbox"id="idCasadoFielCedula" type="number" data-limit="10">
+                                </div>
+
+                                <div class="bg-margin-top-medium" style="text-align: center;">
+                                    <a href="#" id="idCasadoContPantallaFinal" class="bg-button bg-primary">
+                                        <span>Continuar</span>
+                                    </a>
+                                </div>
+                                <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                    <a href="#" id="idCasadoVolverPan2" class=" linkBG02">Volver</a>
+                                </div>
+                            </div>
+
+                            <!--///////////////////////////////////////////////////////////////////-->
+
+                            <div id="idCasadoPantalla4" style="display:none">
+                                <div class="bg-infoForm">
+                                    <label>
+                                        ¿Cuál es tu estado civil?
+                                    </label>
+                                    <p>
+                                        Casado
+                                    </p>
+                                </div>
+                                <div class="bg-infoForm">
+                                    <label>
+                                        Nombre de cónyuge
+                                    </label>
+                                    <p>
+                                        Carla Rocío Benalcazar Alcívar
+                                    </p>
+                                </div>
+                                <div class="bg-infoForm">
+                                    <label>
+                                        Fecha de nacimiento
+                                    </label>
+                                    <p>
+                                        15/10/1986
+                                    </p>
+                                </div>
+                                <div class="bg-infoForm">
+                                    <label>
+                                        Nacionalidad
+                                    </label>
+                                    <p>
+                                        Ecuatoriana
+                                    </p>
+                                </div>
+                                <div class="bg-infoForm">
+                                    <label>
+                                        ¿Es correcta esta información?
+                                    </label>
+                                    <a href="@Url.Action("InfoDomicilio", "CreditoPyme")" class="bg-button bg-primary" style="width: auto;">
+                                        <span>Sí</span>
+                                    </a>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <a href="" class="bg-button bg-primary" style="width: auto;">
+                                        <span>No</span>
+                                    </a>
+                                </div>
+                                <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                    <a href="#" id="idCasadoVolverFinal" class=" linkBG02">Volver</a>
+                                </div>
+                            </div>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<script src="~/Scripts/romads.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var t = $(this).find("option:selected").text();
+        if (t === "Casado")
+            $("#idNoClienteSepBienes").show();
+
+        $("#idNoClienteECsi").click();
+
+        $("#idNoClienteECno").click(function () {
+            $("#idNoClientePantalla1").hide();
+            $("#idNoClientePantalla2").show();
+        });
+
+        $("#idNoClienteSeleccionEC").on('change', function () {
+            var valueSelected = $(this).find("option:selected").val();
+            if (valueSelected == 2452)
+                $("#idNoClienteSepBienes").show();
+            else {
+                $("#idNoClienteSepBienes").hide();
+                $("#idNoClienteCedCony").hide();
+            }
+        });
+
+        $("#idNoClienteVolverPan1").click(function () {
+            $("#idNoClientePantalla1").show();
+            $("#idNoClientePantalla2").hide();
+        });
+
+        //idNoClienteCedCony
+
+        $("#idNoClienteContinuar").click(function () {
+            var ced = $("#idNoClienteNCed").val();
+            if (ced != "") {
+                if (validaCedula(ced)) {
+
+                    var obj = {
+                        identificacionConyuge: $("#idNoClienteNCed").val(),
+                        estadoCivil: $("#idNoClienteSeleccionEC").val(),
+                        descEstadoCivil: $("#idNoClienteSeleccionEC").text(),
+                    }
+                    /*
+                        public int estadoCivil { get; set; }
+
+                        public string descEstadoCivil { get; set; }
+
+                        public string identificacionConyuge { get; set; }
+
+                        public string celularConyuge { get; set; }
+
+                        public string emailConyuge { get; set; }
+                    */
+                    //metodo post
+                    //GeneralPost(@Url.Action("validarEstadoCivil", "CreditoPyme"), obj, function(e){
+                        
+                    //})
+                    $("#idNoClientePantalla1").hide();
+                    $("#idNoClientePantalla2").hide();
+                    $("#idNoClientePantalla3").show();
+                } else {
+                    alertify.error("número de cédula no válido");
+                }
+                
+            } else {
+                if (document.getElementById('idNoClientecheckboxSepB').checked) {
+                    window.location.href = "@Url.Action("Notificacion", "ErrorHandler", new { id = "002" })";
+                }
+
+
+                $("#idNoClientePantalla1").hide();
+                $("#idNoClienteCedCony").show();
+            }
+        });
+
+        $("#idNoClienteVolverFinal").click(function () {
+            $("#idNoClientePantalla1").show();
+            $("#idNoClienteCedCony").show();
+        });
+
+        $("#idNoClienteContFinal").click(function () {
+            var correo = $("#idNoClienteEmailCony").val();
+            if (validateEmail(correo)) {
+
+            } else {
+                alertify.error("correo no válido")
+            }
+        });
+
+        $("#idCasadoECno").click(function () {
+            $("#idBoxPantalla2").show();
+            $("#idBoxCasado").hide();
+        });
+
+        $("#idCasadoVolverPantalla1").click(function () {
+            $("#idBoxPantalla2").hide();
+            $("#idBoxCasado").show();
+        });
+
+        $("#idCasadoContPantalla3").click(function () {
+            //idCasadoSeleccionEC
+            var valueSelected = $(idCasadoSeleccionEC).find("option:selected").val();
+            if (valueSelected == 2452) {
+                $("#idCasadoPantalla3").show();
+                $("#idBoxPantalla2").hide();
+                $("#idBoxCasado").hide();
+            } else {
+                //post otro estado civil
+                obj = {
+                    'estadoCivil':valueSelected,
+                    'codigoCaso': 'c1'
+                }
+                GeneralPost('@Url.Action("validarEstadoCivil", "CreditoPyme")', obj, function () {
+
+                });
+            }
+        });
+
+        $("#idCasadoVolverPan2").click(function () {
+            $("#idBoxPantalla2").show();
+            $("#idCasadoPantalla3").hide();
+            $("#idBoxCasado").hide();
+        });
+
+        $("#idCasadoContPantallaFinal").click(function () {
+            var ced = $("#idCasadoFielCedula").val();
+            if (validaCedula(ced)) {
+                var obj = {}
+                GeneralPost("@Url.Action("validarEstadoCivil", "CreditoPyme")", obj, function (resp) {
+                    //ñññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññ
+                })
+                //metodo post
+                $("#idBoxPantalla2").hide();
+                $("#idCasadoPantalla3").hide();
+                $("#idBoxCasado").hide();
+
+                $("#idCasadoPantalla4").show();
+            } else {
+                alertify.error("número de cédula no válido");
+            }
+        });
+
+        $("#idCasadoVolverFinal").click(function () {
+            $("#idBoxPantalla2").hide();
+            $("#idCasadoPantalla3").show();
+            $("#idBoxCasado").hide();
+            $("#idCasadoPantalla4").hide();
+        });
+    })
+
+</script>

@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ConsultarPrecalificador">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="numeroIdentificacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarPrecalificadorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarPrecalificadorResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcesarPDFImpuestoRenta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="numIdentificacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="anyo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="file" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idProceso" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fechaEstado" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcesarPDFImpuestoRentaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProcesarPDFImpuestoRentaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="codError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcesarPDFDeclaracionIVA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="numIdentificacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mes" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="file" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fecha" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcesarPDFDeclaracionIVAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProcesarPDFDeclaracionIVAResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcesoDeclaracionIVA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="opcion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idProceso" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes1" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes2" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="mes3" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="codError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcesoDeclaracionIVAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaAnyosWeb">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RUC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fechaRevision" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idProceso" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaAnyosWebResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaAnyosWebResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Ins_Updt_Clientes_Rating_Neo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RUC" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombreCliente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="direccion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdClienteRating" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdProcesoRating" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fechaRevision" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Ins_Updt_Clientes_Rating_NeoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdClienteRating" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdProcesoRating" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fechaRevision" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarVariaciones_Indicadores_FlujoEfectivo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idProceso" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarVariaciones_Indicadores_FlujoEfectivoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarAnalisisCualitativo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idProceso" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idCliente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fechaRevision" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarAnalisisCualitativoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarCalificacionSBS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idCliente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idProceso" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarCalificacionSBSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="codError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mensajeRetorno" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaHostGarantias">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="numeroIdentificacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tipoIdentificacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idProceso" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaHostGarantiasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaHostGarantiasResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="CodError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaMesesIva">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaMesesIvaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaMesesIvaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="CodError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaHostRiesgos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idProceso" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="tipoIDPer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numIdentf" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="riesgoPropuesto" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="CodError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaHostRiesgosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CodError" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MensajeError" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultarPrecalificadorSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarPrecalificador" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarPrecalificadorSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarPrecalificadorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProcesarPDFImpuestoRentaSoapIn">
+    <wsdl:part name="parameters" element="tns:ProcesarPDFImpuestoRenta" />
+  </wsdl:message>
+  <wsdl:message name="ProcesarPDFImpuestoRentaSoapOut">
+    <wsdl:part name="parameters" element="tns:ProcesarPDFImpuestoRentaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProcesarPDFDeclaracionIVASoapIn">
+    <wsdl:part name="parameters" element="tns:ProcesarPDFDeclaracionIVA" />
+  </wsdl:message>
+  <wsdl:message name="ProcesarPDFDeclaracionIVASoapOut">
+    <wsdl:part name="parameters" element="tns:ProcesarPDFDeclaracionIVAResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProcesoDeclaracionIVASoapIn">
+    <wsdl:part name="parameters" element="tns:ProcesoDeclaracionIVA" />
+  </wsdl:message>
+  <wsdl:message name="ProcesoDeclaracionIVASoapOut">
+    <wsdl:part name="parameters" element="tns:ProcesoDeclaracionIVAResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaAnyosWebSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaAnyosWeb" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaAnyosWebSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaAnyosWebResponse" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_Ins_Updt_Clientes_Rating_NeoSoapIn">
+    <wsdl:part name="parameters" element="tns:Consultar_Ins_Updt_Clientes_Rating_Neo" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_Ins_Updt_Clientes_Rating_NeoSoapOut">
+    <wsdl:part name="parameters" element="tns:Consultar_Ins_Updt_Clientes_Rating_NeoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerarVariaciones_Indicadores_FlujoEfectivoSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerarVariaciones_Indicadores_FlujoEfectivo" />
+  </wsdl:message>
+  <wsdl:message name="GenerarVariaciones_Indicadores_FlujoEfectivoSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerarVariaciones_Indicadores_FlujoEfectivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerarAnalisisCualitativoSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerarAnalisisCualitativo" />
+  </wsdl:message>
+  <wsdl:message name="GenerarAnalisisCualitativoSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerarAnalisisCualitativoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerarCalificacionSBSSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerarCalificacionSBS" />
+  </wsdl:message>
+  <wsdl:message name="GenerarCalificacionSBSSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerarCalificacionSBSResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaHostGarantiasSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaHostGarantias" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaHostGarantiasSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaHostGarantiasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaMesesIvaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaMesesIva" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaMesesIvaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaMesesIvaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaHostRiesgosSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaHostRiesgos" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaHostRiesgosSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaHostRiesgosResponse" />
+  </wsdl:message>
+  <wsdl:portType name="wsConsultaExternaSoap">
+    <wsdl:operation name="ConsultarPrecalificador">
+      <wsdl:input message="tns:ConsultarPrecalificadorSoapIn" />
+      <wsdl:output message="tns:ConsultarPrecalificadorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcesarPDFImpuestoRenta">
+      <wsdl:input message="tns:ProcesarPDFImpuestoRentaSoapIn" />
+      <wsdl:output message="tns:ProcesarPDFImpuestoRentaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcesarPDFDeclaracionIVA">
+      <wsdl:input message="tns:ProcesarPDFDeclaracionIVASoapIn" />
+      <wsdl:output message="tns:ProcesarPDFDeclaracionIVASoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcesoDeclaracionIVA">
+      <wsdl:input message="tns:ProcesoDeclaracionIVASoapIn" />
+      <wsdl:output message="tns:ProcesoDeclaracionIVASoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAnyosWeb">
+      <wsdl:input message="tns:ConsultaAnyosWebSoapIn" />
+      <wsdl:output message="tns:ConsultaAnyosWebSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Consultar_Ins_Updt_Clientes_Rating_Neo">
+      <wsdl:input message="tns:Consultar_Ins_Updt_Clientes_Rating_NeoSoapIn" />
+      <wsdl:output message="tns:Consultar_Ins_Updt_Clientes_Rating_NeoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarVariaciones_Indicadores_FlujoEfectivo">
+      <wsdl:input message="tns:GenerarVariaciones_Indicadores_FlujoEfectivoSoapIn" />
+      <wsdl:output message="tns:GenerarVariaciones_Indicadores_FlujoEfectivoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarAnalisisCualitativo">
+      <wsdl:input message="tns:GenerarAnalisisCualitativoSoapIn" />
+      <wsdl:output message="tns:GenerarAnalisisCualitativoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarCalificacionSBS">
+      <wsdl:input message="tns:GenerarCalificacionSBSSoapIn" />
+      <wsdl:output message="tns:GenerarCalificacionSBSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaHostGarantias">
+      <wsdl:input message="tns:ConsultaHostGarantiasSoapIn" />
+      <wsdl:output message="tns:ConsultaHostGarantiasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaMesesIva">
+      <wsdl:input message="tns:ConsultaMesesIvaSoapIn" />
+      <wsdl:output message="tns:ConsultaMesesIvaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaHostRiesgos">
+      <wsdl:input message="tns:ConsultaHostRiesgosSoapIn" />
+      <wsdl:output message="tns:ConsultaHostRiesgosSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="wsConsultaExternaSoap" type="tns:wsConsultaExternaSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultarPrecalificador">
+      <soap:operation soapAction="http://tempuri.org/ConsultarPrecalificador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesarPDFImpuestoRenta">
+      <soap:operation soapAction="http://tempuri.org/ProcesarPDFImpuestoRenta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesarPDFDeclaracionIVA">
+      <soap:operation soapAction="http://tempuri.org/ProcesarPDFDeclaracionIVA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesoDeclaracionIVA">
+      <soap:operation soapAction="http://tempuri.org/ProcesoDeclaracionIVA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAnyosWeb">
+      <soap:operation soapAction="http://tempuri.org/ConsultaAnyosWeb" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consultar_Ins_Updt_Clientes_Rating_Neo">
+      <soap:operation soapAction="http://tempuri.org/Consultar_Ins_Updt_Clientes_Rating_Neo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarVariaciones_Indicadores_FlujoEfectivo">
+      <soap:operation soapAction="http://tempuri.org/GenerarVariaciones_Indicadores_FlujoEfectivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarAnalisisCualitativo">
+      <soap:operation soapAction="http://tempuri.org/GenerarAnalisisCualitativo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarCalificacionSBS">
+      <soap:operation soapAction="http://tempuri.org/GenerarCalificacionSBS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaHostGarantias">
+      <soap:operation soapAction="http://tempuri.org/ConsultaHostGarantias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaMesesIva">
+      <soap:operation soapAction="http://tempuri.org/ConsultaMesesIva" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaHostRiesgos">
+      <soap:operation soapAction="http://tempuri.org/ConsultaHostRiesgos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="wsConsultaExternaSoap12" type="tns:wsConsultaExternaSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultarPrecalificador">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarPrecalificador" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesarPDFImpuestoRenta">
+      <soap12:operation soapAction="http://tempuri.org/ProcesarPDFImpuestoRenta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesarPDFDeclaracionIVA">
+      <soap12:operation soapAction="http://tempuri.org/ProcesarPDFDeclaracionIVA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesoDeclaracionIVA">
+      <soap12:operation soapAction="http://tempuri.org/ProcesoDeclaracionIVA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaAnyosWeb">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaAnyosWeb" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consultar_Ins_Updt_Clientes_Rating_Neo">
+      <soap12:operation soapAction="http://tempuri.org/Consultar_Ins_Updt_Clientes_Rating_Neo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarVariaciones_Indicadores_FlujoEfectivo">
+      <soap12:operation soapAction="http://tempuri.org/GenerarVariaciones_Indicadores_FlujoEfectivo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarAnalisisCualitativo">
+      <soap12:operation soapAction="http://tempuri.org/GenerarAnalisisCualitativo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarCalificacionSBS">
+      <soap12:operation soapAction="http://tempuri.org/GenerarCalificacionSBS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaHostGarantias">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaHostGarantias" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaMesesIva">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaMesesIva" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaHostRiesgos">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaHostRiesgos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="wsConsultaExterna">
+    <wsdl:port name="wsConsultaExternaSoap" binding="tns:wsConsultaExternaSoap">
+      <soap:address location="http://172.26.60.144/RatingEmpresarial/wsRating/wsconsultaexterna.asmx" />
+    </wsdl:port>
+    <wsdl:port name="wsConsultaExternaSoap12" binding="tns:wsConsultaExternaSoap12">
+      <soap12:address location="http://172.26.60.144/RatingEmpresarial/wsRating/wsconsultaexterna.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,185 @@
+﻿@using BG.ContratacionWeb.Pyme.Helpers
+@model BG.ContratacionWeb.Pyme.Dtos.ForViewInfoDomicilioDto
+@{
+    ViewBag.Title = "Información Domicilio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+
+@Html.Hidden("urlPostInfoDom", Url.Action("PostDireccionDomYneg", "CreditoPyme"))
+@Html.Hidden("urlToResumenInfoPers", Url.Action("ResumenInfoPersonal", "CreditoPyme"))
+@Html.Hidden("urlToPostArea", Url.Action("GetComboForArea", "CreditoPyme"))
+
+@Html.AntiForgeryToken()
+
+@{
+
+    BG.ContratacionWeb.Pyme.Dtos.FromFormInfoDomicilio Seleccion;
+    if (Model.SeleccionAnterior is BG.ContratacionWeb.Pyme.Dtos.FromFormInfoDomicilio)
+    {
+        Seleccion = Model.SeleccionAnterior;
+    }
+    else
+    {
+        Seleccion = new BG.ContratacionWeb.Pyme.Dtos.FromFormInfoDomicilio();
+        Seleccion.ciudad = 0;
+        Seleccion.direccion1 = "";
+        Seleccion.direccion2 = "";
+        Seleccion.parroquia = 0;
+        Seleccion.provincia = 0;
+        Seleccion.referencia = "";
+        Seleccion.telefonoDomNeg = "";
+    }
+}
+
+<section class="bg-form-layout">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-12">
+                <ul class="bg-steps-vertical" data-current="1" data-percentage="50">
+                    <li>
+                        <h4>Información personal</h4>
+                        <p>Por favor completa tus datos</p>
+                    </li>
+                    <li>
+                        <h4>Información de tu negocio</h4>
+                        <p>Cuéntanos más de tu negocio</p>
+                    </li>
+                    <li>
+                        <h4>Referencias financieras</h4>
+                        <p>Ingresa los datos de tus cuentas</p>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="wrapper wrp2">
+                    <div class="bg-card bg-form-layout-inner">
+                        <div class="bg-margin-top-medium">
+                            <form action="#" class="bg-form">
+                                <div class="bg-infoForm">
+                                    <label>
+                                        ¿De dónde es esta dirección?
+                                    </label>
+                                    <p id="idParrafoDir">
+                                        @(Seleccion.direccion1 == ""?Model.direccion.ToUpperFirstLetter() : Seleccion.direccion1)
+                                    </p>
+                                    <div class="bg-dropdown">
+                                        <select id="idSelectDom">
+                                            <!--option value="" disabled selected>Selecciona la cuenta</option-->
+                                            @foreach (var item in Model.tiposDireccion)
+                                            {
+                                                <option value="@item.CodigoHost">@item.Descripcion.ToUpperFirstLetter()</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                                <!-- dinamico -->
+                                <div id="idCampoDomHide" class="" style="display:none">
+                                    <div class="bg-textfield">
+                                        <label style="text-transform: uppercase;">¿Cuál es la dirección de tu domicilio?</label>
+                                        <input id="idDireccionField1" value="@Seleccion.direccion1" class="bg-textbox" type="text" maxlength="80">
+                                        <p class="bg-helper">Sector, calle principal, etapa, manzana, villa, etc.</p>
+                                        
+                                    </div>
+                                </div>
+
+                                <!-- dinamico -->
+
+                                <div class="bg-textfield">
+                                    <input id="idDireccionField2" value="@Seleccion.direccion2" class="bg-textbox" type="text" maxlength="80">
+                                    <p class="bg-helper">Urbanización, ciudadela, edificio, piso, departamento, etc.</p>
+                                </div>
+
+                                <div class="bg-textfield">
+                                    <label>Referencia</label>
+                                    <input class="bg-textbox" value="@Seleccion.referencia" id="idReferenciaField" type="text" maxlength="80">
+                                    <p class="bg-helper">Un local comercial cercano o color de vivienda</p>
+                                </div>
+                                <!-- combos area -->
+                                <div class="bg-textfield">
+                                    <label>Provincia</label>
+                                    <div class="bg-dropdown">
+                                        <select id="idSeleccionProvincia">
+                                            <option value="0" disabled selected>Selecciona la provincia</option>
+
+                                            @foreach (var item in Model.comboOptionLocation)
+                                            {
+                                                <option value="@item.IdCodigo" selected="@(item.IdCodigo == Seleccion.provincia)">@item.Descripcion</option>
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="bg-textfield">
+                                    <label>Ciudad</label>
+                                    <div class="bg-dropdown">
+                                        <select id="idSeleccionCiudad">
+
+                                            <option value="0" disabled selected>Selecciona la ciudad</option>
+
+                                            @if (Model.ciudad != null)
+                                            {
+                                                foreach (var item in Model.ciudad)
+                                                {
+                                                    <option value="@item.IdCodigo" selected="@(item.IdCodigo == Seleccion.ciudad)">@item.Descripcion</option>
+                                                }
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="bg-textfield">
+                                    <label>Parroquia</label>
+                                    <div class="bg-dropdown">
+                                        <select id="idSeleccionParroquia">
+
+                                            <option value="0" disabled selected>Selecciona la parroquia</option>
+
+                                            @if (Model.parroquia != null)
+                                            {
+                                                foreach (var item in Model.parroquia)
+                                                {
+                                                    <option value="@item.IdCodigo" selected="@(item.IdCodigo == Seleccion.parroquia)">@item.Descripcion</option>
+                                                }
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- combos area -->
+
+
+                                <div class="bg-infoForm">
+                                    <label>
+                                        ¿Cuál es el teléfono de tu domicilio?
+                                    </label>
+                                    <input id="idTelefonoDom" class="bg-textbox" pattern="[0-9]*" maxlength="9" value="@Seleccion.telefonoDomNeg" type="text" data-filter="only-numbres" data-limit="">
+                                    <br>
+                                    <p class="bg-helper">Ejemplo: 04 2565 634</p>
+                                </div>
+                                <div class="bg-margin-top-medium" style="text-align: center;">
+                                    <a id="idBtnContinueToInfPersRes" name="@Url.Action("ResumenInfoPersonal", "CreditoPyme")" class="bg-button bg-primary">
+                                        <span>Continuar</span>
+                                    </a>
+                                </div>
+                                <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                    <a href="@Url.Action("EstadoCivil", "CreditoPyme")" class=" linkBG02">Volver</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script src="~/Scripts/romads.min.js"></script>

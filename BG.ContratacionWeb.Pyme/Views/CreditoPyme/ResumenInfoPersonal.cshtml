@@ -1,0 +1,129 @@
+﻿@using BG.ContratacionWeb.Pyme.Helpers
+@model BG.ContratacionWeb.Pyme.Models.DatosClientePy
+@{
+    ViewBag.Title = "Resumen Información Personal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="bg-form-layout">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-12">
+                <ul class="bg-steps-vertical" data-current="1" data-percentage="50">
+                    <li>
+                        <h4>Información personal</h4>
+                        <p>Por favor completa tus datos</p>
+                    </li>
+                    <li>
+                        <h4>Información de tu negocio</h4>
+                        <p>Cuéntanos más de tu negocio</p>
+                    </li>
+                    <li>
+                        <h4>Referencias financieras</h4>
+                        <p>Ingresa los datos de tus cuentas</p>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="wrapper wrp2">
+                    <div class="bg-card bg-form-layout-inner">
+                        <div class="bg-margin-top-medium">
+                            <div class="bg-textfield">
+                                <label style="text-transform: uppercase;">Revisemos tu información</label>
+                                <p>
+                                    Estos son los datos personales que se incluirán en tu solicitud
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bg-margin-top-medium">
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    Nombre
+                                </p>
+                                <p>
+                                    @Model.Nombres.ToUpperFirstLetter()
+                                </p>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    Cédula
+                                </p>
+                                <p>
+                                    @Model.Cedula
+                                </p>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    Fecha de nacimiento
+                                </p>
+                                <p>
+                                    @Model.FechaNacimiento
+                                </p>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    Celular
+                                </p>
+                                <p>
+                                    @Model.Celular
+                                </p>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    Correo electrónico
+                                </p>
+                                <p>
+                                    @Model.Email.ToLower()
+                                </p>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    Nacionalidad
+                                </p>
+                                <p>
+                                    @Model.Nacionalidad.ToUpperFirstLetter()
+                                </p>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    Estado civil
+                                </p>
+                                <p>
+                                    @Model.EstadoCivil.ToUpperFirstLetter()
+                                </p>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    Dirección de domicilio
+                                </p>
+                                <p>
+                                    @Model.infoDomicilio.direccion1
+                                </p>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    Teléfono de domicilio
+                                </p>
+                                <p>
+                                    @Model.infoDomicilio.telefonoDomNeg
+                                </p>
+                            </div>
+                            <div class="bg-margin-top-medium" style="text-align: center;">
+                                <a href="@Url.Action("TusBalances", "CreditoPyme")" class="bg-button bg-primary">
+                                    <span>Continuar</span>
+                                </a>
+                            </div>
+                            <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                <a href="@Url.Action("InfoDomicilio", "CreditoPyme")" class=" linkBG02">Volver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/romads.min.js"></script>

@@ -1,0 +1,158 @@
+﻿@model BG.ContratacionWeb.Pyme.Models.MesesIva
+@{
+    ViewBag.Title = "Declaración de Iva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .btn {
+        /*border: 2px solid #e91771;*/
+        color: #fff;
+        background-color: #7C8D9E;
+        padding: 2px 10px;
+        /*border-radius: 8px;*/
+        font-size: 14px;
+        /*font-weight: bold;*/
+    }
+
+    .success {
+        background-color: #00ace4 !important;
+        cursor: not-allowed;
+    }
+
+    .upload-btn-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+</style>
+
+@Html.Hidden("urlToPostFiles", Url.Action("SaveDeclaracionIva", "CreditoPyme"))
+@Html.Hidden("urlToGenerarIndicadores", Url.Action("ProcesoDeclaracionIVA", "CreditoPyme"))
+
+@Html.AntiForgeryToken()
+
+<link href="~/Content/icomoon/style.css" rel="stylesheet" />
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+
+<section class="bg-form-layout">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-12 stepsDsktp">
+                <ul class="bg-steps-vertical" data-current="2" data-percentage="50">
+                    <li>
+                        <h4>Información personal</h4>
+                        <p>Por favor completa tus datos</p>
+                    </li>
+                    <li>
+                        <h4>Información de tu negocio</h4>
+                        <p>Cuéntanos más de tu negocio</p>
+                    </li>
+                    <li>
+                        <h4>Referencias financieras</h4>
+                        <p>Ingresa los datos de tus cuentas</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-12 stepsMbl">
+                <ul class="bg-steps " data-elements="3" data-current="2" data-percentage="50"></ul>
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="wrapper wrp2">
+                    <div class="bg-card bg-form-layout-inner">
+                        <div class="bg-margin-top-medium">
+                            <div class="bg-textfield">
+                                <label style="text-transform: uppercase;">Comparte tus declaraciones del IVA <i class="fas fa-question" style="background: #00ace4; padding: 4px 6px; color: #fff; font-size: 0.8rem; border-radius: 15px;" data-toggle="tooltip" title="Descárgalos del sitio web del SRI como el formulario 104"></i> </label>
+                                <p>
+                                    Debes subir los PDF originales de tu declaración del Impuesto al Valor Agregado (IVA).
+                                </p>
+                                <div class="bg-textfield">
+                                </div>
+                                <div class="bg-margin-top-medium">
+                                    <table cellpadding="0" cellspacing="0" border="0" style="width: 50%" align="center">
+                                        <tr>
+                                            <td style="width: 75%; text-align: center;">
+                                                <p style="color: #e91771; font-weight: 600;">Meses</p>
+                                            </td>
+                                            <td style="width: 25%; text-align: center;">&nbsp;</td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #EBECEE">
+                                            <td style="width: 75%; text-align: center; padding-top: 10px;">
+                                                <p>@Model.Mes1</p>
+                                            </td>
+                                            <td style="width: 25%; text-align: center;">
+                                                <div class="upload-btn-wrapper">
+                                                    <button id="btn-@Model.mes1SinAnyo" class="btn"><i id="@Model.mes1SinAnyo" class="fas fa-upload"></i></button>
+                                                    <input onchange="" id="documento1" type="file" name="@Model.mes1SinAnyo" accept="application/pdf" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #EBECEE">
+                                            <td style="width: 75%; text-align: center; padding-top: 10px;">
+                                                <p>@Model.Mes2</p>
+                                            </td>
+                                            <td style="width: 25%; text-align: center;">
+                                                <div class="upload-btn-wrapper">
+                                                    <button id="btn-@Model.mes2SinAnyo" class="btn"><i id="@Model.mes2SinAnyo" class="fas fa-upload"></i></button>
+                                                    <input onchange="" id="documento2" type="file" name="@Model.mes2SinAnyo" accept="application/pdf" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #EBECEE">
+                                            <td style="width: 75%; text-align: center; padding-top: 10px;">
+                                                <p>@Model.Mes3</p>
+                                            </td>
+                                            <td style="width: 25%; text-align: center;">
+                                                <div class="upload-btn-wrapper">
+                                                    <button id="btn-@Model.mes3SinAnyo" class="btn"><i id="@Model.mes3SinAnyo" class="fas fa-upload"></i></button>
+                                                    <input onchange="" id="documento3" type="file" name="@Model.mes3SinAnyo" accept="application/pdf" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    @*@if (Model.Environment.Equals("development", StringComparison.InvariantCultureIgnoreCase))
+                                    {
+                                        <div class="bg-margin-top-medium" style="text-align: center;">
+                                            <a href="@Url.Action("TusVentas", "CreditoPyme")" class="bg-button bg-primary">
+                                                <span>Continuar</span>
+                                            </a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-margin-top-medium" style="text-align: center;">
+                                            <a href="#" id="idBtnPostToIva" class="bg-button bg-primary">
+                                                <span>Continuar</span>
+                                            </a>
+                                        </div>
+                                    }*@
+
+                                    <div class="bg-margin-top-medium" style="text-align: center;">
+                                        <a href="#" id="idBtnFinSubida" class="bg-button bg-primary">
+                                            <span>Continuar</span>
+                                        </a>
+                                    </div>
+
+                                    
+                                    <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                        <a href="@Url.Action("TusBalances", "CreditoPyme")" class=" linkBG02">Volver</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</section>
+
+<script src="~/Scripts/romads.min.js"></script>
+

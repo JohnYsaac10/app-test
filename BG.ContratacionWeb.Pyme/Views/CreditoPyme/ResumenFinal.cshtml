@@ -1,0 +1,201 @@
+﻿@model BG.ContratacionWeb.Pyme.Models.DatosClientePy
+@{
+    ViewBag.Title = "ResumenFinal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Hidden("UrlToConsultaHost", Url.Action("ConsultaHostResumenFinal", "CreditoPyme"));
+@Html.Hidden("UrlSolicitarOTP", Url.Action("CreaCodigoOTP", "CreditoPyme"));
+@Html.Hidden("UrlValidarOTP", Url.Action("ValidaOTP", "CreditoPyme"));
+@Html.Hidden("UrlAprobacion", Url.Action("AprobacionSolicitud", "CreditoPyme"));
+@Html.AntiForgeryToken()
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+
+
+<section class="bg-form-layout">
+    <div class="wrapper wrp2">
+        <div class="bg-card bg-form-layout-inner">
+            <div class="bg-margin-top-medium">
+                <h4 style="text-align: center;">Resumen de tu solicitud</h4>
+            </div>
+            <div class="bg-margin-top-medium">
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Valor solicitado
+                    </p>
+                    <p>
+                        $ @Model.infoSolicitud.Monto
+                    </p>
+                </div>
+                @if (Model.infoSolicitud.ModoDePago.idCodigo == 12168)
+                {
+                    <div class="bg-showInfo">
+                        <p class="titleInfo">
+                            Cuota mensual
+                        </p>
+                        <p>
+                            $ @Model.infoSolicitud.Cuota
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <div class="bg-showInfo">
+                        <p class="titleInfo">
+                            Cuota al vencimiento
+                        </p>
+                        <p>
+                            $ @Model.infoSolicitud.Cuota
+                        </p>
+                    </div>
+                }
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Plazo del crédito
+                    </p>
+                    <p>
+                        @Model.infoSolicitud.PlazoCredito.Descripcion
+                    </p>
+                </div>
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Pago del crédito
+                    </p>
+                    <p>
+                        @Model.infoSolicitud.ModoDePago.Descripcion
+                    </p>
+                </div>
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Método de amortización
+                    </p>
+                    <p>
+                        @Model.infoSolicitud.Amortizacion
+                    </p>
+                </div>
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Cuenta donde se acreditará tu financiamiento
+                    </p>
+                    <p>
+                        Cuenta de Ahorros @Model.infoCuentas.cuentaDep
+                    </p>
+                </div>
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Cuenta para el débito mensual de tu financiamiento
+                    </p>
+                    <p>
+                        Cuenta de Ahorros @Model.infoCuentas.cuentaDeb
+                    </p>
+                </div>
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Día en que realizarás tus pagos
+                    </p>
+                    <p>
+                        @Model.infoSolicitud.DiaDePago de cada mes
+                    </p>
+                </div>
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Tasa de interés
+                    </p>
+                    <p>
+                        Se aplicará una tasa de interés nominal de @Model.infoSolicitud.TasaNominal%, equivalente a una tasa efectiva de @Model.infoSolicitud.TasaNominal% reajustable a las tasas legales vigentes.
+                    </p>
+                </div>
+                @if (Model.IdEstadoCivil == "2452")
+                {
+                    <div class="bg-showInfo">
+                        <p class="titleInfo">
+                            Cónyuge
+                        </p>
+                        <p>
+                            Denisse Carolina Gallegos Zambrano<br>
+                            C.I. 1200556677
+                        </p>
+                    </div>
+
+                    <div class="bg-showInfo">
+                        <p class="titleInfo">
+                            Documentos a presentar en la firma
+                        </p>
+                        <p>
+                            Cédula de identidad original del titular y cónyuge
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <div class="bg-showInfo">
+                        <p class="titleInfo">
+                            Documentos a presentar en la firma
+                        </p>
+                        <p>
+                            Cédula de identidad original del titular
+                        </p>
+                    </div>
+                }
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Condiciones
+                    </p>
+                    <p>
+                        Sujeto a gastos legales e impuestos detallados en la tabla de amortización.
+                    </p>
+                    <p>
+                        Incluye seguro de Desgravamen y Cesantía.
+                    </p>
+                    <label class="bg-checkfield " for="checkbox" style="padding: 0">
+                        <div class="bg-col">
+                            <div class="bg-checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <label for="checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="bg-col">
+                            <label for="checkbox" style="font-size:1.1rem;">Autorizo a Banco Guayaquil a contratar en mi nombre los seguros de  Desgravamen y Cesantía por el tiempo del crédito.</label><br>
+                        </div>
+                    </label>
+                </div>
+                <!--p style="font-size: 1.3rem">
+                    Esta aprobación es válida por 30 días calendario. Debes acercarte a una de nuestras agencias a firmar el contrato y proceder con el desembolso.
+                </p-->
+                <div class="bg-margin-top-medium" style="text-align: center;">
+                    <a href="#" class="bg-button bg-primary" bg-modal="verificacionOTP" id="btnFirmar">
+                        <span>Firmar solicitud</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-modal wrp2 modalOTP" id="verificacionOTP" style="text-align: center;position: fixed;">
+        <i class="bg-sprite-lock"></i>
+        <div class="bg-textfield" style="text-align: center;">
+            <h4 id="titulomodal">Ingresa aquí el código de la firma electrónica que enviamos a tu celular</h4>
+            <div><h4 id="modalCelular"></h4></div>
+        </div>
+        <form class="bg-form bg-verify">
+            <div class="bg-otpfield ">
+                <div class="bg-otp">
+                    <input class="bg-textbox textcode" id="code1" pattern="[0-9]*" data-valid="true" inputmode="" value="" type="number" data-filter="only-numbres" data-limit="1" autocomplete="off">
+                    <input class="bg-textbox textcode" pattern="[0-9]*" data-valid="true" inputmode="" value="" type="number" data-filter="only-numbres" data-limit="1" autocomplete="off">
+                    <input class="bg-textbox textcode" pattern="[0-9]*" data-valid="true" inputmode="" value="" type="number" data-filter="only-numbres" data-limit="1" autocomplete="off">
+                    <input class="bg-textbox textcode" pattern="[0-9]*" data-valid="true" inputmode="" value="" type="number" data-filter="only-numbres" data-limit="1" autocomplete="off">
+                    <input class="bg-textbox textcode" pattern="[0-9]*" data-valid="true" inputmode="" value="" type="number" data-filter="only-numbres" data-limit="1" autocomplete="off">
+                    <input class="bg-textbox textcode" pattern="[0-9]*" data-valid="true" inputmode="" value="" type="number" data-filter="only-numbres" data-limit="1" autocomplete="off">
+                    <input type="hidden" id="code_opt_id">
+                </div>
+                <p class="bg-helper">La validez de tu código es de 4 minutos</p>
+            </div>
+            <a href="#" id="btnOtpReenviar" class="linkBG02">Solicitar nueva firma electrónica</a>
+            <a href="#" id="btnOtpFirmar" class="bg-button bg-primary" style="margin-top: 3rem;">
+                <span>Firmar solicitud</span>
+            </a>
+        </form>
+    </div>
+</section>
+
+<script src="~/Content/js/atomicbg.js"></script>

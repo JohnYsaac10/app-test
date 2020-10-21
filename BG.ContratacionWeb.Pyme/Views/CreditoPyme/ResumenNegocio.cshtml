@@ -1,0 +1,396 @@
+﻿@model BG.ContratacionWeb.Pyme.Models.DatosClientePy
+
+@{
+    ViewBag.Title = "Resumen Negocio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+
+<section class="bg-form-layout">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-12 stepsDsktp">
+                <ul class="bg-steps-vertical" data-current="2" data-percentage="50">
+                    <li>
+                        <h4>Información personal</h4>
+                        <p>Por favor completa tus datos</p>
+                    </li>
+                    <li>
+                        <h4>Información de tu negocio</h4>
+                        <p>Cuéntanos más de tu negocio</p>
+                    </li>
+                    <li>
+                        <h4>Referencias financieras</h4>
+                        <p>Ingresa los datos de tus cuentas</p>
+                    </li>
+                    <li>
+                        <h4>Información garante</h4>
+                        <p>Cuéntanos quién será tu garante</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-12 stepsMbl">
+                <ul class="bg-steps " data-elements="3" data-current="2" data-percentage="50"></ul>
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="wrapper wrp2">
+                    <div class="bg-card bg-form-layout-inner">
+                        <div class="bg-margin-top-medium">
+                            <div class="bg-textfield">
+                                <label style="text-transform: uppercase;">Revisemos la información de tu negocio</label>
+                                <p>
+                                    Estos datos se incluirán en tu solicitud
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bg-margin-top-medium">
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    Dirección del negocio
+                                </p>
+                                <p>
+                                    @Model.infoNegocio.direccion1
+                                </p>
+                            </div>
+                            <p>
+                                <a class="linkDetalle" data-toggle="collapse" href="#revisaDireccion" role="button" aria-expanded="false" aria-controls="revisaDireccion">
+                                    Revisa tu dirección
+                                </a>
+                            </p>
+                            <div class="collapse" id="revisaDireccion">
+                                <div class="card card-body">
+                                    <div class="bg-showInfo">
+                                        <!--p class="titleInfo">
+                                            Dirección del negocio
+                                        </p>
+                                        <p>
+                                            Av. Antonio Parra Velasco y Paseo 20B
+                                        </p-->
+                                        <p>
+                                            @Model.infoNegocio.direccion1
+                                        </p>
+                                        <p>
+                                            @Model.infoNegocio.referencia
+                                        </p>
+                                    </div>
+                                    <div class="bg-showInfo">
+                                        <p class="titleInfo">
+                                            Provincia / Ciudad
+                                        </p>
+                                        <p>
+                                            @Model.infoNegocio.parroquiaDesc / @Model.infoNegocio.ciudadDesc
+                                        </p>
+                                    </div>
+                                    <div class="bg-showInfo">
+                                        <p class="titleInfo">
+                                            Parroquia
+                                        </p>
+                                        <p>
+                                            @Model.infoDomicilio.parroquiaDesc
+                                        </p>
+                                    </div>
+                                    @if (Model.infoNegocio.isSecure == 1)
+                                    {
+                                        <div class="bg-showInfo">
+                                            <p class="titleInfo">
+                                                Inmueble asegurado
+                                            </p>
+                                            <p>
+                                                @Model.infoNegocio.aseguradoraDesc
+                                            </p>
+                                        </div>
+                                    }
+                                    
+
+                                </div>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    Teléfono del negocio
+                                </p>
+                                <p>
+                                    @Model.infoNegocio.telefonoDomNeg
+                                </p>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    ¿Cuenta con seguro en su negocio?
+                                </p>
+                                <p>
+                                    @Model.infoNegocio.isSecureDesc
+                                </p>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    ¿Cómo se distribuyen tus ventas?
+                                </p>
+                                @{
+                                    string ventasYporcentaje = "";
+                                    foreach (var item in Model.infoVentas.productos)
+                                    {
+                                        ventasYporcentaje = ventasYporcentaje + item.nombre + " - " + item.porcentajeVentas + "%, ";
+                                    }
+
+                                }
+                                <p>
+                                    @ventasYporcentaje
+                                </p>
+                            </div>
+                            <p>
+                                <a class="linkDetalle" data-toggle="collapse" href="#revisaProductos" role="button" aria-expanded="false" aria-controls="revisaProductos">
+                                    Revisa tus líneas de productos
+                                </a>
+                            </p>
+                            <div class="collapse" id="revisaProductos">
+                                <div class="card card-body">
+                                    @{
+                                        foreach (var item in Model.infoVentas.productos)
+                                        {
+                                            <div class="bg-showInfo">
+                                                <p>
+                                                    @item.nombre  - @item.porcentajeVentas %
+                                                </p>
+                                            </div>
+                                        }
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    ¿Cúantos empleados tienes?
+                                </p>
+                                <p>
+                                    @Model.infoVentas.numeroEmpleados
+                                </p>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    ¿Quiénes son tus principales clientes?
+                                </p>
+                                @{ 
+                                    string clientes = "";
+                                    foreach(var item in Model.infoClientes.clientes)
+                                    {
+                                        if(item.tipo == "C")
+                                        {
+                                            clientes = clientes + item.nombre + ", ";
+                                        }
+                                    }
+                                }
+
+                                <p>
+                                    @clientes
+                                </p>
+                            </div>
+                            <p>
+                                <a class="linkDetalle" data-toggle="collapse" href="#revisaClientes" role="button" aria-expanded="false" aria-controls="revisaClientes">
+                                    Revisa tus principales clientes
+                                </a>
+                            </p>
+                            <div class="collapse" id="revisaClientes">
+                                <div class="card card-body">
+                                    @foreach (var item in Model.infoClientes.clientes)
+                                    {
+                                        if (item.tipo == "C")
+                                        {
+                                            <div class="bg-showInfo">
+                                                <p>
+                                                    <strong>Razón social:</strong> @item.nombre,
+                                                </p>
+                                                <p>
+                                                    <strong>% de venta:</strong> @item.porcentaje%
+                                                </p>
+                                                <p>
+                                                    <strong>Plazo de crédito:</strong> @item.dias días
+                                                </p>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="bg-showInfo">
+                                <p class="titleInfo">
+                                    ¿Quiénes son tus principales proveedores?
+                                </p>
+                                @{ 
+                                    string proveedores = "";
+                                    foreach (var item in Model.infoClientes.clientes)
+                                    {
+                                        if(item.tipo == "P")
+                                        {
+                                            proveedores = proveedores + item.nombre + ", ";
+                                        }
+                                    }
+                                }
+                                <p>
+                                    @proveedores
+                                </p>
+                            </div>
+                            <p>
+                                <a class="linkDetalle" data-toggle="collapse" href="#revisaProveedores" role="button" aria-expanded="false" aria-controls="revisaProveedores">
+                                    Revisa tus principales proveedores
+                                </a>
+                            </p>
+                            <div class="collapse" id="revisaProveedores">
+                                <div class="card card-body">
+
+                                    @foreach (var item in Model.infoClientes.clientes)
+                                    {
+                                        if (item.tipo == "P")
+                                        {
+                                            <div class="bg-showInfo">
+                                                <p>
+                                                    <strong>Razón social:</strong> @item.nombre,
+                                                </p>
+                                                <p>
+                                                    <strong>% de venta:</strong> @item.porcentaje%
+                                                </p>
+                                                <p>
+                                                    <strong>Plazo de crédito:</strong> @item.dias días
+                                                </p>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            @if (Model.infoCertificaciones.TieneCertificacion == 1)
+                            {
+                                <div class="bg-showInfo">
+                                    <p class="titleInfo">
+                                        Estas son tus certificaciones
+                                    </p>
+                                    @{
+                                        string certificaciones = "";
+                                        foreach (var item in Model.infoCertificaciones.Certificaciones)
+                                        {
+                                            certificaciones = certificaciones + item.Descripcion + ", ";
+                                        }
+                                    }
+                                    <p>
+                                        @certificaciones
+                                    </p>
+                                </div>
+                            }
+                            
+
+                            <div class="bg-margin-top-medium" style="text-align: center;">
+                                <a href="@Url.Action("ReferenciaBancaria", "CreditoPyme")" class="bg-button bg-primary">
+                                    <span>Continuar</span>
+                                </a>
+                            </div>
+                            <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                <a href="@Url.Action("CertificacionNegocio", "CreditoPyme")" class="linkBG02">Volver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL DIRECCION -->
+    <div class="bg-modal wrp2 modalOTP" id="detalleDireccion">
+        <div class="wrapper wrp2">
+            <div class="bg-margin-top-medium">
+                <h4>Información del negocio</h4>
+            </div>
+            <div class="bg-margin-top-medium">
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Dirección del negocio
+                    </p>
+                    <p>
+                        Av. Antonio Parra Velasco y Paseo 20B
+                    </p>
+                    <p>
+                        Cdla. Guayacanez Mz 238, Villa 2
+                    </p>
+                    <p>
+                        Al llegar al último semáforo de los 4 carriles, girar a la derecha cuadra y media, edif. de 3 plantas
+                    </p>
+                </div>
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Provincia / Ciudad
+                    </p>
+                    <p>
+                        Guayas / Guayaquil
+                    </p>
+                </div>
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Parroquia
+                    </p>
+                    <p>
+                        Tarqui
+                    </p>
+                </div>
+                <div class="bg-showInfo">
+                    <p class="titleInfo">
+                        Inmueble asegurado
+                    </p>
+                    <p>
+                        Seguros Equinoccial
+                    </p>
+                </div>
+                <div class="bg-margin-top-medium">
+                    <a href="012-informacion-negocio-resumen.html" class="bg-button bg-primary">
+                        <span>Cerrar</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL VENTAS -->
+    <div class="bg-modal wrp2 modalOTP" id="detalleProductos">
+        <div class="wrapper wrp2">
+            <div class="bg-margin-top-medium">
+                <h4>Líneas de Productos</h4>
+            </div>
+            <div class="bg-margin-top-medium">
+
+            </div>
+            <div class="bg-margin-top-medium">
+                <a href="012-informacion-negocio-resumen.html" class="bg-button bg-primary">
+                    <span>Cerrar</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL CLIENTES -->
+    <div class="bg-modal wrp2 modalOTP" id="detalleClientes">
+        <div class="wrapper wrp2">
+            <div class="bg-margin-top-medium">
+                <h4>Información de tus clientes</h4>
+            </div>
+            <div class="bg-margin-top-medium">
+
+            </div>
+            <div class="bg-margin-top-medium">
+                <a href="012-informacion-negocio-resumen.html" class="bg-button bg-primary">
+                    <span>Cerrar</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL PROVEEDORES -->
+    <div class="bg-modal wrp2 modalOTP" id="detalleProveedores">
+        <div class="wrapper wrp2">
+            <div class="bg-margin-top-medium">
+                <h4>Información de tus proveedores</h4>
+            </div>
+            <div class="bg-margin-top-medium">
+
+            </div>
+            <div class="bg-margin-top-medium">
+                <a href="012-informacion-negocio-resumen.html" class="bg-button bg-primary">
+                    <span>Cerrar</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/romads.min.js"></script>

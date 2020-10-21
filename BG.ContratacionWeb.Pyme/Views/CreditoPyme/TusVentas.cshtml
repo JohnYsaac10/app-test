@@ -1,0 +1,205 @@
+﻿@using BG.ContratacionWeb.Pyme.Helpers
+@model BG.ContratacionWeb.Pyme.Dtos.FromFormVentas
+@{
+    ViewBag.Title = "Tus Ventas-Empleados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+
+@Html.Hidden("urlPostVentas", Url.Action("SendVentas", "CreditoPyme"))
+@Html.Hidden("urlToClientes", Url.Action("ClientesProveedores", "CreditoPyme"))
+@Html.Hidden("urlToPostArea", Url.Action("GetComboForArea", "CreditoPyme"))
+@Html.Hidden("counterProductos", Model.productos == null ? 0 : Model.productos.Count)
+
+@Html.AntiForgeryToken()
+<section class="bg-form-layout">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-12">
+                <ul class="bg-steps-vertical" data-current="2" data-percentage="50">
+                    <li>
+                        <h4>Información personal</h4>
+                        <p>Por favor completa tus datos</p>
+                    </li>
+                    <li>
+                        <h4>Información de tu negocio</h4>
+                        <p>Cuéntanos más de tu negocio</p>
+                    </li>
+                    <li>
+                        <h4>Referencias financieras</h4>
+                        <p>Ingresa los datos de tus cuentas</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="wrapper wrp2">
+                    <div class="bg-card bg-form-layout-inner">
+                        <div class="bg-margin-top-medium">
+                            <div class="bg-textfield">
+                                <label style="text-transform: uppercase;">¿Cómo se distribuyen tus ventas?</label>
+                                <p class="bg-helper">Detalla tus principales líneas de productos y qué porcentaje de tus ventas representan.</p>
+@if (Model.productos != null)
+{
+foreach (var item in Model.productos)
+{
+                                <div data-role="dynamic-fields">
+                                    <div class="form-inline">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-9 col-12" style="margin-bottom: 10px;">
+                                                    <input class="bg-textbox" name="nombreProducto[]" pattern="" inputmode="" value="@item.nombre" type="text" data-filter="" data-limit="" placeholder="Nombre de tu producto">
+                                                </div>
+                                                <div class="col-lg-3 col-12">
+                                                    <input class="bg-textbox" pattern="" inputmode="" name="porcentajeProducto[]" value="@item.porcentajeVentas" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12" style="margin: 10px 0">
+                                            @if (Model.productos.First() == item)
+                                            {
+                                                
+                                            <button id="btnAgregarProducto" class="bg-button bg-secondary"  data-role="add">
+                                                <span>Agregar producto</span>
+                                            </button>
+                                            <button id="btnEliminarProducto" class="bg-button bg-secondary" data-role="remove">
+                                                <span>Eliminar producto</span>
+                                            </button>
+                                            }
+                                            else
+                                            {
+
+                                                <button id="btnEliminarProducto" class="bg-button bg-secondary" data-role="remove2">
+                                                    <span>Eliminar producto</span>
+                                                </button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+}
+}
+else
+{
+    <div data-role="dynamic-fields">
+        <div class="form-inline">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 col-12" style="margin-bottom: 10px;">
+                        <input class="bg-textbox" name="nombreProducto[]" pattern="" inputmode="" value="" type="text" data-filter="" data-limit="" placeholder="Nombre de tu producto">
+                    </div>
+                    <div class="col-lg-3 col-12">
+                        <input class="bg-textbox" pattern="" inputmode="" name="porcentajeProducto[]" value="" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="%">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12" style="margin: 10px 0">
+                <button id="btnEliminarProducto" class="bg-button bg-secondary" data-role="remove">
+                    <span>Eliminar producto</span>
+                </button>
+                <button id="btnAgregarProducto" class="bg-button bg-secondary" data-role="add">
+                    <span>Agregar producto</span>
+                </button>
+            </div>
+        </div>
+    </div>
+}
+                            </div>
+                            <div class="bg-textfield">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-9 col-12" style="margin-bottom: 10px; padding-left: 0;">
+                                            <label style="text-transform: uppercase; padding-top: 13px;">¿Cuántos empleados tienes?</label>
+                                        </div>
+                                        <div class="col-lg-3 col-12">
+                                            <input class="bg-textbox" id="numeroEmpleados" pattern="" inputmode="" value="@Model.numeroEmpleados" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="bg-margin-top-medium" style="text-align: center;">
+                                <a id="idBtnContinueToClientes" href="#" class="bg-button bg-primary">
+                                    <span>Continuar</span>
+                                </a>
+                            </div>
+                            <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                <a href="@Url.Action("DeclaracionIva", "CreditoPyme")" class=" linkBG02">Volver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    $(function () {
+        var whatbutton = "";
+        var counter2 = $("#counterProductos").val();
+        var counterProducto = 1;
+        if (counter2 > 0) {
+             counterProducto = counter2;
+        }
+        
+       
+	// Remove button click
+	$(document).on(
+		'click',
+		'[data-role="dynamic-fields"] > .form-inline [data-role="remove"]',
+		function(e) {
+		    e.preventDefault();
+		    whatbutton = $(this).attr('id');
+		    if (whatbutton == "btnEliminarProducto") {
+		        if (counterProducto > 1)
+		        { counterProducto--; }
+
+		    }
+		    $(this).closest('.form-inline').remove();
+		    
+		}
+		);
+
+        //remove2
+	$(document).on(
+    'click',
+    '[data-role="dynamic-fields"] > .form-inline [data-role="remove2"]',
+    function (e) {
+        e.preventDefault();
+        whatbutton = $(this).attr('id');
+        if (whatbutton == "btnEliminarProducto") {
+            if (counterProducto > 1)
+            { counterProducto--; }
+
+        }
+        $(this).closest('.form-inline').remove();
+
+    }
+    );
+	// Add button click
+	$(document).on(
+		'click',
+		'[data-role="dynamic-fields"] > .form-inline [data-role="add"]',
+		function(e) {
+		    e.preventDefault();
+		    whatbutton = $(this).attr('id');
+		    if (whatbutton == "btnAgregarProducto") {
+		        if (counterProducto < 5) {
+		            var container = $(this).closest('[data-role="dynamic-fields"]');
+		            new_field_group = container.children().filter('.form-inline:first-child').clone();
+		            new_field_group.find('input').each(function () {
+		                $(this).val('');
+		            });
+		            container.append(new_field_group);
+		            counterProducto++;
+		        }
+		    }
+
+		    
+		}
+		);
+	});
+</script>
+<script src="~/Scripts/romads.min.js"></script>

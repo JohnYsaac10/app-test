@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este archivo es utilizado por el proceso de paquete/publicación de nuestro proyecto Web. Puede personalizar el comportamiento de este proceso
+editando este archivo MSBuild. Para conocer más acerca de esto, visite http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\vmt-jsanchez\Downloads\Nuevo\Publicacion</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>11/28/2019 11:28:54</publishTime>
+    </File>
+    <File Include="bin/AutoMapper.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/BG.ContratacionWeb.Pyme.dll">
+      <publishTime>01/03/2020 17:37:30</publishTime>
+    </File>
+    <File Include="bin/BG.ContratacionWeb.Pyme.XmlSerializers.dll">
+      <publishTime>01/03/2020 17:37:33</publishTime>
+    </File>
+    <File Include="bin/Calabonga.Configurations.dll">
+      <publishTime>11/21/2019 11:23:26</publishTime>
+    </File>
+    <File Include="bin/CommonServiceLocator.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Helpers.resources.dll">
+      <publishTime>01/28/2015 04:04:36</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Mvc.resources.dll">
+      <publishTime>01/28/2015 04:02:24</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Razor.resources.dll">
+      <publishTime>01/28/2015 04:02:36</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Webpages.Deployment.resources.dll">
+      <publishTime>01/28/2015 04:04:36</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Webpages.Razor.resources.dll">
+      <publishTime>01/28/2015 04:04:36</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Webpages.resources.dll">
+      <publishTime>01/28/2015 04:04:36</publishTime>
+    </File>
+    <File Include="bin/itextsharp.dll">
+      <publishTime>12/11/2019 17:38:32</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>11/21/2019 11:23:26</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>11/21/2019 11:23:26</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>02/11/2014 15:26:04</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.Deployment.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.Razor.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/Unity.Abstractions.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/Unity.Configuration.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/Unity.Container.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/Unity.Interception.Configuration.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/Unity.Interception.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/Unity.Mvc5.dll">
+      <publishTime>11/21/2019 11:23:26</publishTime>
+    </File>
+    <File Include="bin/Unity.RegistrationByConvention.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/Unity.ServiceLocation.dll">
+      <publishTime>11/21/2019 11:23:27</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>07/17/2013 17:03:52</publishTime>
+    </File>
+    <File Include="Configurations/appsettings.json">
+      <publishTime>01/03/2020 14:59:45</publishTime>
+    </File>
+    <File Include="Configurations/appsettings.local.json">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Configurations/appsettings.production.json">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Connected Services/ServicioToken/BG.ContratacionWeb.Pyme.ServicioToken.TokenObtiene.datasource">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Connected Services/ServicioToken/BG.ContratacionWeb.Pyme.ServicioToken.TokenValida.datasource">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Content/Alertify/alertify.min.css">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Content/Alertify/alertify.min.js">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Content/Alertify/default.min.css">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Content/css/bootstrap.min.css">
+      <publishTime>11/27/2019 10:27:25</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/animated-overlay.gif">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/ui-bg_flat_0_aaaaaa_40x100.png">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/ui-bg_flat_100_e6e7e8_40x100.png">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/ui-bg_flat_100_f56954_40x100.png">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/ui-bg_flat_55_f39c12_40x100.png">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/ui-bg_flat_65_ffffff_40x100.png">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/ui-bg_flat_75_dadada_40x100.png">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/ui-bg_flat_75_e6e6e6_40x100.png">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/ui-bg_flat_75_ffffff_40x100.png">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/ui-icons_222222_256x240.png">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/ui-icons_454545_256x240.png">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/ui-icons_888888_256x240.png">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/images/ui-icons_ffffff_256x240.png">
+      <publishTime>11/27/2019 15:06:00</publishTime>
+    </File>
+    <File Include="Content/css/datepicker/jquery-ui.css">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Content/css/romads.min.css">
+      <publishTime>12/12/2019 16:53:10</publishTime>
+    </File>
+    <File Include="Content/css/styles.css">
+      <publishTime>11/27/2019 10:52:34</publishTime>
+    </File>
+    <File Include="Content/icomoon/fonts/icomoon.eot">
+      <publishTime>12/17/2019 18:02:14</publishTime>
+    </File>
+    <File Include="Content/icomoon/fonts/icomoon.svg">
+      <publishTime>12/17/2019 18:02:14</publishTime>
+    </File>
+    <File Include="Content/icomoon/fonts/icomoon.ttf">
+      <publishTime>12/17/2019 18:02:14</publishTime>
+    </File>
+    <File Include="Content/icomoon/fonts/icomoon.woff">
+      <publishTime>12/17/2019 18:02:14</publishTime>
+    </File>
+    <File Include="Content/icomoon/icomoon.css">
+      <publishTime>11/26/2019 10:08:24</publishTime>
+    </File>
+    <File Include="Content/icomoon/style.css">
+      <publishTime>12/17/2019 18:02:14</publishTime>
+    </File>
+    <File Include="Content/images/banco_guayaquil_fullcolor_white.png">
+      <publishTime>11/21/2019 11:07:52</publishTime>
+    </File>
+    <File Include="Content/images/calendar.svg">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Content/images/favicon.png">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Content/js/atomicbg.js">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Content/js/datepicker/jquery-ui.min.js">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Content/js/jquery.min.js">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Content/js/main.js">
+      <publishTime>01/03/2020 16:04:09</publishTime>
+    </File>
+    <File Include="Content/js/MoneyMask.js">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Content/romads.min.css">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>12/12/2019 16:56:03</publishTime>
+    </File>
+    <File Include="Properties/DataSources/System.Data.DataSet.datasource">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Properties/DataSources/System.Data.DataTable.datasource">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Scripts/romads.min.js">
+      <publishTime>11/27/2019 10:49:06</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/AprobacionSolicitud.cshtml">
+      <publishTime>01/03/2020 16:04:53</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/CertificacionNegocio.cshtml">
+      <publishTime>12/27/2019 17:12:09</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/ClientesProveedores.cshtml">
+      <publishTime>12/27/2019 17:31:35</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/DeclaracionIva.cshtml">
+      <publishTime>12/27/2019 17:07:52</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/DireccionNegocio.cshtml">
+      <publishTime>01/02/2020 17:27:58</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/EstadoCivil.cshtml">
+      <publishTime>01/03/2020 17:27:32</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/InfoDomicilio.cshtml">
+      <publishTime>01/02/2020 15:02:32</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/InfoPersonal.cshtml">
+      <publishTime>12/11/2019 11:02:58</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/ReferenciaBancaria.cshtml">
+      <publishTime>12/27/2019 17:24:42</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/RegistrarEmail.cshtml">
+      <publishTime>12/17/2019 09:19:11</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/ResumenFinal.cshtml">
+      <publishTime>01/03/2020 16:04:53</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/ResumenInfoPersonal.cshtml">
+      <publishTime>12/23/2019 13:47:28</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/ResumenNegocio.cshtml">
+      <publishTime>12/27/2019 17:30:05</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/Simulador.cshtml">
+      <publishTime>01/02/2020 15:27:12</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/TusBalances.cshtml">
+      <publishTime>12/27/2019 10:44:37</publishTime>
+    </File>
+    <File Include="Views/CreditoPyme/TusVentas.cshtml">
+      <publishTime>12/27/2019 17:31:35</publishTime>
+    </File>
+    <File Include="Views/ErrorHandler/Notificacion.cshtml">
+      <publishTime>11/27/2019 14:34:41</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>12/12/2019 12:29:05</publishTime>
+    </File>
+    <File Include="Views/SobreGiro/DetalleSolicitud.cshtml">
+      <publishTime>12/27/2019 16:58:57</publishTime>
+    </File>
+    <File Include="Views/SobreGiro/Solicitud.cshtml">
+      <publishTime>12/27/2019 16:58:46</publishTime>
+    </File>
+    <File Include="Views/Test/GenerateToken.cshtml">
+      <publishTime>11/21/2019 12:19:47</publishTime>
+    </File>
+    <File Include="Views/web.config">
+      <publishTime>11/21/2019 11:08:01</publishTime>
+    </File>
+    <File Include="Web References/ServicioContratacionProductos/Agencia.datasource">
+      <publishTime>12/19/2019 16:45:04</publishTime>
+    </File>
+    <File Include="Web References/ServicioContratacionProductos/Catalogo.datasource">
+      <publishTime>12/19/2019 16:45:04</publishTime>
+    </File>
+    <File Include="Web References/ServicioContratacionProductos/Chequeras.datasource">
+      <publishTime>12/19/2019 16:45:04</publishTime>
+    </File>
+    <File Include="Web References/ServicioContratacionProductos/ConsultaCuentasClienteResponse.datasource">
+      <publishTime>12/19/2019 16:45:04</publishTime>
+    </File>
+    <File Include="Web References/ServicioContratacionProductos/DataTicket.datasource">
+      <publishTime>12/19/2019 16:45:04</publishTime>
+    </File>
+    <File Include="Web References/ServicioContratacionProductos/ExpedientesEnProcesos.datasource">
+      <publishTime>12/19/2019 16:45:04</publishTime>
+    </File>
+    <File Include="Web References/ServicioContratacionProductos/Periodicidad.datasource">
+      <publishTime>12/19/2019 16:45:04</publishTime>
+    </File>
+    <File Include="Web References/ServicioContratacionProductos/ReglasActualizacionDatosRiesgoCliente.datasource">
+      <publishTime>12/19/2019 16:45:04</publishTime>
+    </File>
+    <File Include="Web References/ServicioContratacionProductos/RespuestaConsultaOperacionesRetanqueoCredito.datasource">
+      <publishTime>12/19/2019 16:45:04</publishTime>
+    </File>
+    <File Include="Web References/ServicioExpediente/GeneralCampos.datasource">
+      <publishTime>12/12/2019 17:16:35</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>12/13/2019 11:12:44</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

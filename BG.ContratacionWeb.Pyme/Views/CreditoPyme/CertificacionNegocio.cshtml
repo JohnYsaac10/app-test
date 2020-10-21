@@ -1,0 +1,96 @@
+﻿@using BG.ContratacionWeb.Pyme.Helpers
+@model BG.ContratacionWeb.Pyme.Dtos.ForViewCertNegocio
+@{
+    ViewBag.Title = "Certificación Negocio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+
+@Html.Hidden("UrlToPostCert", Url.Action("SaveCertificaciones", "CreditoPyme"));
+@Html.Hidden("UrlToResumenNeg", Url.Action("ResumennNegocio", "CreditoPyme"));
+@Html.AntiForgeryToken()
+
+<section class="bg-form-layout">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-12 stepsDsktp">
+                <ul class="bg-steps-vertical" data-current="2" data-percentage="50">
+                    <li>
+                        <h4>Información personal</h4>
+                        <p>Por favor completa tus datos</p>
+                    </li>
+                    <li>
+                        <h4>Información de tu negocio</h4>
+                        <p>Cuéntanos más de tu negocio</p>
+                    </li>
+                    <li>
+                        <h4>Referencias financieras</h4>
+                        <p>Ingresa los datos de tus cuentas</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-12 stepsMbl">
+                <ul class="bg-steps " data-elements="3" data-current="2" data-percentage="50"></ul>
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="wrapper wrp2">
+                    <div class="bg-card bg-form-layout-inner">
+                        <div class="bg-margin-top-medium">
+                            <form action="#" class="bg-form">
+                                <div class="bg-textfield">
+                                    <label style="text-transform: uppercase;">¿Tienes algún tipo de certificación?</label>
+                                    <div class="bg-dropdown">
+                                        <select id="idSeleccionTieneCert">
+                                            <!--option value="" disabled selected>Selecciona la cuenta</option-->
+                                            <option value="1">Sí</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="bg-textfield" id="idBoxHideCertificacion">
+                                    <label>Selecciona cuáles</label>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-12" style="margin-bottom: 10px;">
+
+
+                                                @foreach (var item in Model.Certificaciones)
+                                                {
+                                                    <label class="bg-checkfield " for="iso-@item.IdCodigo" style="margin-bottom: 0">
+                                                        <div class="bg-col" style="display: inline-block;">
+                                                            <div class="bg-checkbox">
+                                                                <input type="checkbox" id="iso-@item.IdCodigo" name="@item.Descripcion" value="@item.IdCodigo">
+                                                                <label for="iso-@item.IdCodigo"></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="bg-col" style="display: inline-block;">
+                                                            <label for="checkbox" style="display:inline-block; margin-bottom: 0">@item.Descripcion</label>
+                                                        </div>
+                                                    </label>
+                                                }
+                                                
+                                                <input style="display:none" id="idFielDetailCert" class="bg-textbox" type="text" data-limit="80" placeholder="Detalla el nombre de tu certificación">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                    <a href="#" id="idContinueToNegResumen" class="bg-button bg-primary"><span>Continuar</span></a>
+                                </div>
+                                <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                    <a href="@Url.Action("DireccionNegocio", "CreditoPyme")" class=" linkBG02">Volver</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<script src="~/Scripts/romads.min.js"></script>

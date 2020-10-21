@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://172.26.60.33/BG.WCF.TokenService/TokenService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/BG.WCF.TokenService.Data" />
+  <xs:element name="GenerarToken">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="canal" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="aplicacion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="metajson" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GenerarTokenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/BG.WCF.TokenService.Data" minOccurs="0" name="GenerarTokenResult" nillable="true" type="q1:TokenObtiene" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RecuperarInfToken">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="canal" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="aplicacion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RecuperarInfTokenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/BG.WCF.TokenService.Data" minOccurs="0" name="RecuperarInfTokenResult" nillable="true" type="q2:TokenValida" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

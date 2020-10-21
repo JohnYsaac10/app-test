@@ -1,0 +1,197 @@
+﻿@model BG.ContratacionWeb.Pyme.Dtos.ForViewReferenciaBancaria
+@{
+    ViewBag.Title = "Referencia Bancaria";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Hidden("UrlToSendReferenciaBanco", Url.Action("SaveReferenciaBancaria", "CreditoPyme"));
+@Html.Hidden("UrlToSendSaveCtaToDebDep", Url.Action("SaveCuentaToDebDep", "CreditoPyme"));
+@Html.Hidden("UrlToResumenFinal", Url.Action("ResumenFinal", "CreditoPyme"));
+
+@Html.AntiForgeryToken()
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+
+<section class="bg-form-layout">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-12 stepsDsktp">
+                <ul class="bg-steps-vertical" data-current="3" data-percentage="50">
+                    <li>
+                        <h4>Información personal</h4>
+                        <p>Por favor completa tus datos</p>
+                    </li>
+                    <li>
+                        <h4>Información de tu negocio</h4>
+                        <p>Cuéntanos más de tu negocio</p>
+                    </li>
+                    <li>
+                        <h4>Referencias financieras</h4>
+                        <p>Ingresa los datos de tus cuentas</p>
+                    </li>
+                    <li>
+                        <h4>Información garante</h4>
+                        <p>Cuéntanos quién será tu garante</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-12 stepsMbl">
+                <ul class="bg-steps " data-elements="3" data-current="3" data-percentage="50"></ul>
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="wrapper wrp2">
+                    <div class="bg-card bg-form-layout-inner">
+                        <div class="bg-margin-top-medium">
+                            <div class="bg-textfield">
+                                <label style="text-transform: uppercase;">¿Tienes otras cuentas bancarias?</label>
+                            </div>
+                            <div data-role="dynamic-fields">
+                                <div class="form-inline">
+                                    <div class="bg-textfield" style="margin-bottom: 0;">
+                                        <label style="justify-content:left;">Selecciona la institución financiera</label>
+                                        <div class="bg-textfield">
+                                            <div class="bg-dropdown">
+                                                <select class="idBancosSeleccion">
+                                                    @foreach (var item in Model.bancos)
+                                                    {
+                                                        <option value="@item.IdCodigo">@item.Descripcion</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="bg-textfield">
+                                            <label style="justify-content: left;">Tipo de cuenta</label>
+                                            <div class="bg-textfield">
+                                                <div class="bg-dropdown">
+                                                    <select class="idTipoCuentaSeleccion">
+                                                        <option value="CA">Cuenta de Ahorros</option>
+                                                        <option value="CC">Cuenta Corriente</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-textfield">
+                                            <label style="justify-content: left; margin-bottom: 10px;">Número de cuenta</label>
+                                            <input class="bg-textbox idNumeroCuenta" pattern="[0-9]*" value="" type="number" data-filter="[0-9]*">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12" style="margin: 10px 0; padding-left: 0;">
+                                        <button class="bg-button bg-secondary" data-role="remove">
+                                            <span>Eliminar cuenta</span>
+                                        </button>
+                                        <button class="bg-button bg-secondary" data-role="add">
+                                            <span>Agregar cuenta</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-margin-top-medium" style="text-align: center;">
+                                <a href="#" class="bg-button bg-primary" id="idContinuarCuentas">
+                                    @*bg-modal="selectCuenta"*@
+                                    <span>Continuar</span>
+                                </a>
+                            </div>
+                            <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                                <a href="@Url.Action("ResumenNegocio", "CreditoPyme")" class="linkBG02" bg-modal="infoCuenta">Volver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-modal wrp2 modalOTP" id="infoCuenta" style="text-align: center;">
+        <form class="bg-form bg-verify">
+            <div class="bg-textfield">
+                <label style="text-transform: uppercase; margin-bottom: 30px; text-align: center;">Cuenta Banco Guayaquil asociada a tu crédito</label>
+            </div>
+            <div class="bg-infoForm">
+                <label>
+                    Cuenta de Ahorros 4440956900
+                </label>
+                <p style="font-size: 1.3rem">
+                    Aquí acreditaremos tu financiamiento y debitaremos tu cuota mensual.
+                </p>
+            </div>
+            <a href="014-solicitud-aprobada.html" class="bg-button bg-primary" style="margin-top: 3rem;">
+                <span>Continuar</span>
+            </a>
+        </form>
+    </div>
+
+    <!-- modal en caso de no tener cta  -->
+    <div class="bg-modal wrp2 modalOTP" id="abroCuenta" style="text-align: center;">
+        <form class="bg-form bg-verify">
+            <div class="bg-textfield">
+                <label style="text-transform: uppercase; margin-bottom: 30px; text-align: center;">Cuenta Banco Guayaquil asociada a tu crédito</label>
+            </div>
+            <div class="bg-infoForm">
+                <p style="font-size: 1.3rem">
+                    Crearemos una Cuenta de Ahorros para la acreditación de tu financiento y débito de tu cuota mensual.
+                </p>
+            </div>
+            <a href="@Url.Action("ResumenFinal", "CreditoPyme")" class="bg-button bg-primary" style="margin-top: 3rem;">
+                <span>Continuar</span>
+            </a>
+        </form>
+    </div>
+    <!-- FIN modal en caso de no tener cta  -->
+
+    <!-- modal selecciona cta bg -->
+    <div class="bg-modal wrp2 modalOTP" id="idSelectCuentaModal" style="text-align: center;">
+        <form class="bg-form bg-verify">
+            <div class="bg-textfield">
+                <label style="text-transform: uppercase; margin-bottom: 30px; text-align: center;">Cuentas BG asociadas a tu crédito</label>
+                <label>Aquí acreditaremos tu financiamiento</label>
+                <div class="bg-dropdown">
+                    <select id="idSelectCtaDepModal">
+                        <option value="" disabled selected>Elige tu cuenta</option>
+                    </select>
+                </div>
+            </div>
+            <div class="bg-textfield">
+                <label>Aquí debitaremos tu cuota mensual</label>
+                <div class="bg-dropdown">
+                    <select id="idSelectCtaDebModal">
+                        <option value="" disabled selected>Elige tu cuenta</option>
+                    </select>
+                </div>
+            </div>
+            <a href="#" class="bg-button bg-primary" id="idBtnSelectCtasBg" style="margin-top: 3rem;">
+                <span>Continuar</span>
+            </a>
+        </form>
+    </div>
+    <!-- FIN modal selecciona cta bg -->
+
+</section>
+
+<script type="text/javascript">
+		$(function() {
+	// Remove button click
+	$(document).on(
+		'click',
+		'[data-role="dynamic-fields"] > .form-inline [data-role="remove"]',
+		function(e) {
+			e.preventDefault();
+			$(this).closest('.form-inline').remove();
+		}
+		);
+	// Add button click
+	$(document).on(
+		'click',
+		'[data-role="dynamic-fields"] > .form-inline [data-role="add"]',
+		function(e) {
+			e.preventDefault();
+			var container = $(this).closest('[data-role="dynamic-fields"]');
+			new_field_group = container.children().filter('.form-inline:first-child').clone();
+			new_field_group.find('input').each(function(){
+				$(this).val('');
+			});
+			container.append(new_field_group);
+		}
+		);
+	});
+</script>
+
+<script src="~/Scripts/romads.min.js"></script>

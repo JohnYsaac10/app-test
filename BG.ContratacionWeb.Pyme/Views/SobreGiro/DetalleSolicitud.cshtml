@@ -1,0 +1,122 @@
+﻿@using BG.ContratacionWeb.Pyme.Helpers
+
+@model BG.ContratacionWeb.Pyme.Dtos.SobreGiroDetalleSolicitudDto
+@{
+    ViewBag.Title = "Detalle Solicitud";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Hidden("UrlSolicitarOTP", Url.Action("CreaCodigoOTP", "SobreGiro"))
+@Html.Hidden("UrlValidarOTP", Url.Action("ValidaOTP", "SobreGiro"))
+
+@Html.AntiForgeryToken()
+
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+
+
+
+    <section class="bg-form-layout">
+        <div class="wrapper wrp2">
+            <div class="bg-card bg-form-layout-inner">
+                <div class="bg-margin-top-medium">
+                    <h4>Confirma tu solicitud</h4>
+                    <p>
+                        Revisemos los datos que ingresaste para tu sobregiro.
+                    </p>
+                </div>
+                <div class="bg-margin-top-medium">
+                    <div class="bg-showInfo">
+                        <p class="titleInfo">Cuenta en la que se efectuará el sobregiro</p>
+                        <p>@Model.Cuenta.Remove(Model.Cuenta.Length - 2)</p>
+                    </div>
+                    <div class="bg-showInfo">
+                        <p class="titleInfo">Monto solicitado</p>
+                        <p>$ @Model.Cantidad</p>
+                    </div>
+                    <div class="bg-showInfo">
+                        <p class="titleInfo">Plazo del sobregiro</p>
+                        <p>@Model.FechaPago</p>
+                    </div>
+                    <div class="bg-showInfo">
+                        <p class="titleInfo">Tipo de sobregiro</p>
+                        <p>@Model.SobreGiroElegido.Nombre</p>
+                        <p class="bgHelper2">@Model.SobreGiroElegido.Detalle</p>
+                    </div>
+                    <div class="bg-showInfo">
+                        <p class="titleInfo">Tasa de interés efectiva anual</p>
+                        <p>@Model.TasaInteres%</p>
+                    </div>
+                    <label class="bg-checkfield " for="checkbox">
+                        <div class="bg-col">
+                            <div class="bg-checkbox">
+                                <input type="checkbox" id="aceptar_politicas_id" autocomplete="off">
+                                <label for="aceptar_politicas_id"></label>
+                            </div>
+                        </div>
+                        <div class="bg-col">
+                            <label for="checkbox">Autorizo a Banco Guayaquil a verificar mis datos</label><br>
+                            <a href="#" style="font-size: 1.3rem;" id="btn_show_modal_id">¿Qué estoy autorizando?</a>
+                        </div>
+                    </label>
+                    <div class="bg-margin-top-medium">
+                        <a href="#" class="bg-button bg-primary" id="confirmar_soli_id"><span>Confirmar solicitud</span></a>
+                    </div>
+                    <div class="bg-margin-top-medium bg-margin-bottom-medium" style="text-align: center;">
+                        <a href="@Url.Action("Solicitud", "SobreGiro")">Volver</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--Modal-->
+        <div class="bg-modal" id="myId">
+            <h4>Tratamiento de datos personales del usuario.-</h4>
+            <p class="text-justify">
+                El usuario autoriza de forma expresa a Banco Guayaquil S.A. (“Banco”) y sus subsidiarias, para que obtengan de cualquier fuente de información pública o privada autorizada, lo que incluye de forma expresa a los burós de información crediticia facultados para operar en el país y a la Dirección Nacional de Registro de Datos Públicos, o a las entidades que las reemplacen, sus referencias personales y patrimoniales, anteriores o posteriores al otorgamiento de esta autorización, sea como deudor principal, codeudor o garante, sobre su comportamiento crediticio, el manejo de sus cuentas, tarjetas de crédito y en general, sobre el cumplimiento de sus obligaciones; así como, sobre sus activos, pasivos y en general, sus datos personales y patrimoniales, aplicables para uno o más de los servicios y productos que brindan las entidades del sistema financiero nacional. En caso de que alguno de los datos fuere incorrecto, impreciso o incompleto, reconoce que el Banco podrá rechazar su solicitud para la contratación del producto o servicio financiero aquí requerido; e inclusive, terminar la relación contractual que tuviere con el Banco o cualquiera de sus subsidiarias, en cualquier momento de su vigencia.
+                Así también, el usuario autoriza de forma expresa al Banco y sus subsidiarias, para que transfieran la información referida anteriormente y aquella que se genere durante su relación comercial con el Banco o sus subsidiarias, sin necesidad de nueva autorización. En especial, autoriza al Banco para que, conforme al marco jurídico vigente, comparta su información personal y aquella relacionada con su calidad de cliente del Banco y con el manejo de los productos o medios de pago que he contratado, a las siguientes personas naturales o jurídicas: (i) las que sean encargadas de realizar análisis de crédito, generación de modelos de información y perfiles de comportamiento actual y predictivo, procesos que el Banco requiere para cumplir con la regulación bancaria o sus políticas internas; (ii) las compañías de servicios auxiliares y en general, terceros que presten servicios al Banco para el desarrollo de las actividades relacionadas con el giro de su negocio; (iii) aquellas que lleven a cabo procesos de cobranza en cualquiera de sus etapas; (iv) terceros o subsidiarias con los cuales el Banco tenga alianzas o convenios comerciales, para el desarrollo, promoción y/o comercialización de productos y servicios; (v) terceros que fueren adquirentes o cesionarios de créditos, derechos, acciones o acreencias de los que el Banco fuere titular, propietario o beneficiario bajo cualquier título; y, (vi) organizaciones no gubernamentales en el marco de sus actividades no lucrativas patrocinadas por el Banco o por las marcas por el que sea titular o representante en el país, a fin de que pueda participar o aportar en los programas de que aquellas promuevan.
+                El Banco se compromete a implementar medidas de seguridad para proteger los datos personales del usuario a fin de evitar su pérdida, alteración o uso no autorizado. En los casos en que el Banco compartiera información con terceros, les advertirá de su obligación de mantener la información del usuario en estricta reserva y confidencialidad y a utilizarla únicamente para los fines para los cuales fue proporcionada; de tal forma, que  dichos terceros quedarán obligados a aplicar medidas de seguridad eficaces para su custodia y uso bajo esos parámetros, debiendo responder en caso de incumplimiento de este compromiso.
+                El usuario podrá acceder, rectificar o revocar la autorización conferida al Banco para compartir sus datos personales con terceros, mediante notificación escrita en dicho sentido y presentada en sus oficinas.
+                Finalmente, el Banco se reserva el derecho de enmendar, modificar o actualizar, como estime conveniente, los términos aquí convenidos con el usuario para el manejo de su información, ya sea para cumplir con cambios en la legislación aplicable, políticas internas del Banco, cambios en el modelo de negocio, entre otros.  En estos casos, a través de la APP, el Banco pondrá en conocimiento del usuario los nuevos términos para su aceptación, sin perjuicio de los otros canales que el BANCO pudiere habilitar para este fin.
+            </p>
+            <h4 class="mt-4">Propiedad intelectual y uso de la APP.-</h4>
+            <p class="text-justify">
+                Banco Guayaquil S. A. se reserva para sí todos los derechos de propiedad intelectual e industrial sobre esta aplicación electrónica (“APP”), lo que incluye su interfaz para interactuar con los usuarios, bases de datos o programas de ordenador subyacentes, códigos fuentes, contenido y elementos tales como gráficos, imágenes, textos, videos, sonidos, entre otros.  Así también, se reserva la propiedad y uso de los signos distintivos que aparecieran en la APP o en sus enlaces,  de los que fuera titular, licenciatario o beneficiario bajo cualquier título, tales como marcas, diseños, logotipos, nombres comerciales, lemas comerciales, apariencias distintivas y demás elementos sujetos a protección, que hayan sido registrados o se encuentren en proceso de registro ante la autoridad competente.
+                El Banco autoriza al usuario el acceso y uso de la APP, de forma no exclusiva, para lo cual reconoce que el uso de la APP, así como la contratación o uso de los productos o servicios ofrecidos a través de ella, no implica bajo ninguna circunstancia la cesión o transferencia de los derechos de propiedad intelectual o industrial que corresponden al Banco bajo las calidades antes indicadas, sobre la APP y sus elementos, incluidos los signos distintivos, por lo que el usuario no podrá, de forma total o parcial, reproducir o distribuir su contenido, transformar, traducir, preparar trabajos derivados, descompilar, realizar ingeniería inversa, desmontar o tratar de obtener por cualquier medio, los códigos fuentes de la APP o de cualquier de los servicios o productos ofrecidos a través de ella, así como de los softwares o documentación del Banco; ni podrá eliminar, ocultar o modificar de alguna forma los avisos sobre propiedad intelectual incorporados o contenidos en la APP, incluidos los productos o servicios ahí ofrecidos o en sus enlaces.  Finalmente, el usuario no podrá realizar actividades en la APP que pudieren dañar o comprometer su normal acceso y operación.
+                El usuario se compromete a utilizar la APP y los servicios y productos que se ofrecen a través de ella, de acuerdo con las buenas costumbres, el orden público y la legislación vigente, por lo que no podrá emplearla para fines ilícitos o fraudulentos tipificados como tales en la legislación ecuatoriana, o de cualquier forma que pudiere causar daños o perjuicios al Banco o a terceros, incluido el daño a la reputación e imagen del Banco.  Así también, se compromete a acceder y operar la APP y los productos y servicios ofrecidos a través de ella, siguiendo los parámetros y recomendaciones de seguridad proporcionadas por el Banco en la APP o en algún otro documento físico o virtual dispuesto para ello, entre los que se incluye tener actualizados los sistemas de detección de software maliciosos o los parches de seguridad de los navegadores, entre otros, por lo que reconoce que el Banco no responderá por los daños y perjuicios que pudiere llegar a sufrir por incumplir dichos procedimientos o por hechos de terceros sobre los que el Banco no tuviere control o responsabilidad, tales como riesgos inherentes a los sistemas de navegación, dispositivos o en general medios empleados para acceder y operar la APP, incluidos los daños y perjuicios ocasionados por cualquier tipo de software maliciosos, virus o cualquier otro tipo de elemento dañino.
+                En caso de que el usuario detectara en la APP algún funcionamiento irregular, vulneración de sus sistemas de seguridad o algún contenido que pudiere ocasionar daños o perjuicios al propio usuario, Banco o terceros o que fuere contrario a las buenas costumbres, orden público y ordenamiento jurídico vigente, se compromete a notificar de forma inmediata al Banco, a través de los canales de atención al cliente dispuestos por este último. La recepción de la notificación por parte del Banco, no supone su aceptación de los hechos denunciados; sin embargo, podrá suspender la operación de la APP o retirar los contenidos denunciados como ilícitos o lesivos.
+                En caso de que el usuario incumpla con cualquiera de estas disposiciones que regulan el uso de la APP, el Banco se reserva el derecho de restringir su acceso a la APP, para lo cual podrá adoptar cualquier medida técnica que considere necesaria, además de iniciar contra el usuario las acciones civiles, administrativas y/o penales correspondientes.
+                Por su parte, el Banco se reserva el derecho de actualizar y modificar la APP, incluida su interfaz, contenidos y productos y servicios que se ofrecen a través de ella, en cualquier momento y sin necesidad de aviso previo al usuario.  Así también, el Banco se reserva la facultad de suspender la operación de la APP o de limitar su acceso u operación sin previo aviso al usuario, por mantenimientos técnicos o cuando creyere que se han visto afectados los estándares de operación o de seguridad de la APP.
+                El Banco podrá incluir en la APP enlaces a otros sitios web propios o de terceros, sin que ello signifique promoción, recomendación o conformidad con su contenido.  En especial, en el caso de enlaces de terceros, el Banco no será responsable de los servicios o contenidos facilitados en dichos enlaces o de sus políticas de uso o medidas de seguridad, los que deberán ser verificados por el usuario al momento de su ingreso.  Cualquier reclamo sobre su operación o contenido deberá ser dirigido por el usuario de forma directa al proveedor de dichos servicios o autor de tales contenidos.
+                El uso  y contenido de la APP, así como de los servicios y productos ahí ofrecidos, están regulados por la legislación ecuatoriana, por lo que cualquier conflicto relacionado con cualquiera de aquellos, deberá ser resuelto de acuerdo con dicha legislación.
+            </p>
+            <a href="#" class="bg-button bg-primary" style="margin-top: 3rem;" id="btn_hide_modal_id"><span>Cerrar</span></a>
+        </div>
+        <!--FIN Modal-->
+
+
+        <div class="bg-modal bg-verify wrp2" data-static="true" id="myIdOtp" style="text-align: center;">
+            <form class="bg-form bg-verify">
+                <i class="bg-sprite-lock bg-margin-bottom-small"></i>
+                <h4>Ingresa aquí el código de tu firma</h4>
+                <p id="titleModalOTP_id">Enviamos el código al celular @Model.celular.maskMobile()</p>
+                <div class="bg-otpfield ">
+                    <div class="bg-otp">
+                        <input class="bg-textbox" pattern="[0-9]*" data-valid="true" inputmode="" value="" type="number" data-filter="only-numbres" data-limit="1" autocomplete="off">
+                        <input class="bg-textbox" pattern="[0-9]*" data-valid="true" inputmode="" value="" type="number" data-filter="only-numbres" data-limit="1" autocomplete="off">
+                        <input class="bg-textbox" pattern="[0-9]*" data-valid="true" inputmode="" value="" type="number" data-filter="only-numbres" data-limit="1" autocomplete="off">
+                        <input class="bg-textbox" pattern="[0-9]*" data-valid="true" inputmode="" value="" type="number" data-filter="only-numbres" data-limit="1" autocomplete="off">
+                        <input class="bg-textbox" pattern="[0-9]*" data-valid="true" inputmode="" value="" type="number" data-filter="only-numbres" data-limit="1" autocomplete="off">
+                        <input class="bg-textbox" pattern="[0-9]*" data-valid="true" inputmode="" value="" type="number" data-filter="only-numbres" data-limit="1" autocomplete="off">
+                        <input type="hidden" id="code_opt_id">
+                    </div>
+                    <p class="bg-helper">La validez de tu código es de 4 minutos</p>
+                </div>
+                <a href="#" id="reenviarOTP_id">Solicitar nuevo código</a>
+                <a href="#" class="bg-button bg-primary" style="margin-top: 3rem;" id="firmar_otp_id"><span>Firmar</span></a>
+            </form>
+        </div>
+    </section>
+
+    <script src="~/Content/js/atomicbg.js"></script>

@@ -1,0 +1,55 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" type="image/png" href="~/Content/images/favicon.png" />
+
+    <link href="~/Content/css/styles.css" rel="stylesheet" />
+    <link href="~/Content/css/romads.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Alertify/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/Alertify/default.min.css" rel="stylesheet" />
+
+    @*@Styles.Render("~/bundles/css")*@
+
+    <script src="~/Content/Alertify/alertify.min.js"></script>
+</head>
+
+@{ 
+    var saludo = (string)Session["saludo"];
+}
+
+<body>
+    <header class="bg-header bg-inverted">
+        <div class="bg-inner">
+            <div class="col-6">
+                <div class="bg-logo bg-inverted">
+                    <img src="~/Content/images/banco_guayaquil_fullcolor_white.png" alt="Banco Guayaquil">
+                </div>
+            </div>
+            <div class="col-6">
+                <ul class="bg-navigation">
+                    <li><a href="#"> @saludo </a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    @Html.Hidden("UrlNotificacion", Url.Action("Notificacion", "ErrorHandler"))
+
+    <div class="body-content">
+        @RenderBody()
+    </div>
+</body>
+</html>

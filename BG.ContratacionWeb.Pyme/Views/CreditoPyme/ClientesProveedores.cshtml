@@ -1,0 +1,375 @@
+﻿@using BG.ContratacionWeb.Pyme.Helpers
+@model BG.ContratacionWeb.Pyme.Dtos.FromFormClientes
+@{
+    ViewBag.Title = "Tus Clientes-Proveedores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/js/jquery.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+
+@Html.Hidden("urlPostClientes", Url.Action("SendClientesProveedores", "CreditoPyme"))
+@Html.Hidden("urlToNegocio", Url.Action("DireccionNegocio", "CreditoPyme"))
+@Html.Hidden("urlToPostArea", Url.Action("GetComboForArea", "CreditoPyme"))
+@Html.Hidden("counterClientes", Model.clientes == null ? 0 : Model.clientes.Count(x => x.tipo == "C"))
+@Html.Hidden("counterProveedores", Model.clientes == null ? 0 : Model.clientes.Count(x => x.tipo == "P"))
+@Html.AntiForgeryToken()
+<section class="bg-form-layout">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-4 col-12">
+                <ul class="bg-steps-vertical" data-current="2" data-percentage="50">
+                    <li>
+                        <h4>Información personal</h4>
+                        <p>Por favor completa tus datos</p>
+                    </li>
+                    <li>
+                        <h4>Información de tu negocio</h4>
+                        <p>Cuéntanos más de tu negocio</p>
+                    </li>
+                    <li>
+                        <h4>Referencias financieras</h4>
+                        <p>Ingresa los datos de tus cuentas</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="wrapper wrp2">
+                    <div class="bg-card bg-form-layout-inner">
+                        <div class="bg-margin-top-medium">
+                            <div class="bg-textfield">
+                                <label style="text-transform: uppercase;">¿Quiénes son tus principales clientes?</label>
+                                <p class="bg-helper">Detalla mínimo 3, con el porcentaje que representa del 100% de tus ventas y cuántos días le das de crédito.</p>
+                                <!--input class="bg-textbox" pattern="" inputmode="" value="" type="text" data-filter="" data-limit=""-->
+                            @if (Model.clientes != null)
+                            {
+                                if (Model.clientes.Where(x => x.tipo == "C") != null)
+                                {
+                                    foreach (var item in Model.clientes.Where(x => x.tipo == "C"))
+                                    {
+                                <div data-role="dynamic-fields">
+                                    <div class="form-inline">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-12" style="margin-bottom: 10px;">
+                                                    <input class="bg-textbox" pattern="" inputmode="" name="nombreCliente[]" value="@item.nombre" type="text" data-filter="" data-limit="" placeholder="Ingresa el nombre o razón social">
+                                                </div>
+                                                <div class="col-lg-6 col-12">
+                                                    <input class="bg-textbox" pattern="" inputmode="" name="porcentajeCliente[]" value="@item.porcentaje" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="% de tus ventas">
+                                                </div>
+                                                <div class="col-lg-6 col-12">
+                                                    <input class="bg-textbox" pattern="" inputmode="" name="diasCliente[]" value="@item.dias" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="Días de plazo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12" style="margin: 10px 0;">
+                                        @if (Model.clientes.First(x => x.tipo == "C") == item)
+                                        {
+                                            <button id="btnEliminarCliente" class="bg-button bg-secondary" data-role="remove">
+                                                <span>Eliminar cliente</span>
+                                            </button>
+                                            <button id="btnAgregarCliente" class="bg-button bg-secondary" data-role="add">
+                                                <span>Agregar nuevo cliente</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button id="btnEliminarCliente" class="bg-button bg-secondary" data-role="remove2">
+                                                <span>Eliminar cliente</span>
+                                            </button>
+
+                                        }
+                                           
+
+                                        </div>
+                                    </div>
+                                </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div data-role="dynamic-fields">
+                                        <div class="form-inline">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-12" style="margin-bottom: 10px;">
+                                                        <input class="bg-textbox" pattern="" inputmode="" name="nombreCliente[]" value="" type="text" data-filter="" data-limit="" placeholder="Ingresa el nombre o razón social">
+                                                    </div>
+                                                    <div class="col-lg-6 col-12">
+                                                        <input class="bg-textbox" pattern="" inputmode="" name="porcentajeCliente[]" value="" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="% de tus ventas">
+                                                    </div>
+                                                    <div class="col-lg-6 col-12">
+                                                        <input class="bg-textbox" pattern="" inputmode="" name="diasCliente[]" value="" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="Días de plazo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12" style="margin: 10px 0;">
+                                                <button id="btnEliminarCliente" class="bg-button bg-secondary" data-role="remove">
+                                                    <span>Eliminar cliente</span>
+                                                </button>
+                                                <button id="btnAgregarCliente" class="bg-button bg-secondary" data-role="add">
+                                                    <span>Agregar nuevo cliente</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div data-role="dynamic-fields">
+                                    <div class="form-inline">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-12" style="margin-bottom: 10px;">
+                                                    <input class="bg-textbox" pattern="" inputmode="" name="nombreCliente[]" value="" type="text" data-filter="" data-limit="" placeholder="Ingresa el nombre o razón social">
+                                                </div>
+                                                <div class="col-lg-6 col-12">
+                                                    <input class="bg-textbox" pattern="" inputmode="" name="porcentajeCliente[]" value="" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="% de tus ventas">
+                                                </div>
+                                                <div class="col-lg-6 col-12">
+                                                    <input class="bg-textbox" pattern="" inputmode="" name="diasCliente[]" value="" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="Días de plazo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12" style="margin: 10px 0;">
+                                            <button id="btnEliminarCliente" class="bg-button bg-secondary" data-role="remove">
+                                                <span>Eliminar cliente</span>
+                                            </button>
+                                            <button id="btnAgregarCliente" class="bg-button bg-secondary" data-role="add">
+                                                <span>Agregar nuevo cliente</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            </div>
+                            <hr>
+                            <div class="bg-textfield">
+                                <label style="text-transform: uppercase;">¿Quiénes son tus principales proveedores?</label>
+                                <p class="bg-helper">Detalla mínimo 3, el procentaje que les compras y cuántos días te dan de crédito.</p>
+                                <!--input class="bg-textbox" pattern="" inputmode="" value="" type="text" data-filter="" data-limit=""-->
+                            @if (Model.clientes != null)
+                            {
+                                if (Model.clientes.Where(x => x.tipo == "P") != null)
+                                {
+                                    foreach (var item in Model.clientes.Where(x => x.tipo == "P"))
+                                    {
+                                <div data-role="dynamic-fields">
+                                    <div class="form-inline">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-12" style="margin-bottom: 10px;">
+                                                    <input class="bg-textbox" pattern="" inputmode="" value="@item.nombre" name="nombreProveedor[]" type="text" data-filter="" data-limit="" placeholder="Ingresa el nombre o razón social">
+                                                </div>
+                                                <div class="col-lg-6 col-12">
+                                                    <input class="bg-textbox" pattern="" inputmode="" value="@item.porcentaje" name="porcentajeProveedor[]" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="% sobre compras">
+                                                </div>
+                                                <div class="col-lg-6 col-12">
+                                                    <input class="bg-textbox" pattern="" inputmode="" value="@item.dias" name="diasProveedor[]" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="Días de crédito">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12" style="margin: 10px 0;">
+                                        @if (Model.clientes.First(x => x.tipo == "P") == item)
+                                        {
+                                            <button id="btnEliminarProveedor" class="bg-button bg-secondary" data-role="remove">
+                                                <span>Eliminar proveedor</span>
+                                            </button>
+                                            <button id="btnAgregarProveedor" class="bg-button bg-secondary" data-role="add">
+                                                <span>Agregar proveedor</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button id="btnEliminarProveedor" class="bg-button bg-secondary" data-role="remove2">
+                                                <span>Eliminar proveedor</span>
+                                            </button>
+                                        }
+                                        </div>
+                                    </div>
+                                </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div data-role="dynamic-fields">
+                                        <div class="form-inline">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-12" style="margin-bottom: 10px;">
+                                                        <input class="bg-textbox" pattern="" inputmode="" value="" name="nombreProveedor[]" type="text" data-filter="" data-limit="" placeholder="Ingresa el nombre o razón social">
+                                                    </div>
+                                                    <div class="col-lg-6 col-12">
+                                                        <input class="bg-textbox" pattern="" inputmode="" value="" name="porcentajeProveedor[]" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="% sobre compras">
+                                                    </div>
+                                                    <div class="col-lg-6 col-12">
+                                                        <input class="bg-textbox" pattern="" inputmode="" value="" name="diasProveedor[]" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="Días de crédito">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12" style="margin: 10px 0;">
+                                                <button id="btnEliminarProveedor" class="bg-button bg-secondary" data-role="remove">
+                                                    <span>Eliminar proveedor</span>
+                                                </button>
+                                                <button id="btnAgregarProveedor" class="bg-button bg-secondary" data-role="add">
+                                                    <span>Agregar proveedor</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div data-role="dynamic-fields">
+                                    <div class="form-inline">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-12" style="margin-bottom: 10px;">
+                                                    <input class="bg-textbox" pattern="" inputmode="" value="" name="nombreProveedor[]" type="text" data-filter="" data-limit="" placeholder="Ingresa el nombre o razón social">
+                                                </div>
+                                                <div class="col-lg-6 col-12">
+                                                    <input class="bg-textbox" pattern="" inputmode="" value="" name="porcentajeProveedor[]" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="% sobre compras">
+                                                </div>
+                                                <div class="col-lg-6 col-12">
+                                                    <input class="bg-textbox" pattern="" inputmode="" value="" name="diasProveedor[]" style="padding-right: 1rem;" type="number" data-filter="" data-limit="3" placeholder="Días de crédito">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12" style="margin: 10px 0;">
+                                            <button id="btnEliminarProveedor" class="bg-button bg-secondary" data-role="remove">
+                                                <span>Eliminar proveedor</span>
+                                            </button>
+                                            <button id="btnAgregarProveedor" class="bg-button bg-secondary" data-role="add">
+                                                <span>Agregar proveedor</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            </div>
+                            <div class="bg-margin-top-medium" style="text-align: center;">
+                                <a href="#" id="idBtnContinueToNegocio" class="bg-button bg-primary">
+                                    <span>Continuar</span>
+                                </a>
+                            </div>
+                            <div class="#" style="text-align: center;">
+                                <a href="@Url.Action("TusVentas", "CreditoPyme")" class=" linkBG02">Volver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+</section>
+
+
+<script type="text/javascript">
+    $(function () {
+        var whatbutton = "";
+        var counter1 = $("#counterClientes").val();
+        var counter2 = $("#counterProveedores").val();
+                                    var counterCliente = 1;
+                                    var counterProveedor = 1;
+                                    if (counter1 > 0) {
+                                        counterCliente = counter1;
+                                    }
+                                    if (counter2 > 0) {
+                                        counterProveedor = counter2;
+                                    }
+	// Remove button click
+	$(document).on(
+        'click',
+        '[data-role="dynamic-fields"] > .form-inline [data-role="remove"]',
+        function (e) {
+
+                                        e.preventDefault();
+                                        whatbutton = $(this).attr('id');
+                                        if (whatbutton == "btnEliminarCliente")
+                                        {
+                                            if (counterCliente > 1)
+                                            { counterCliente--; }
+
+                                        }
+                                        else if (whatbutton == "btnEliminarProveedor")
+                                        {
+                                            if(counterProveedor > 1)
+                                            { counterProveedor--;}
+
+                                        }
+
+		    $(this).closest('.form-inline').remove();
+
+
+
+                                    }
+		);
+
+        // Remove2
+	$(document).on(
+        'click',
+        '[data-role="dynamic-fields"] > .form-inline [data-role="remove2"]',
+        function (e) {
+
+            e.preventDefault();
+            whatbutton = $(this).attr('id');
+            if (whatbutton == "btnEliminarCliente") {
+                if (counterCliente > 1)
+                { counterCliente--; }
+
+            }
+            else if (whatbutton == "btnEliminarProveedor") {
+                if (counterProveedor > 1)
+                { counterProveedor--; }
+
+            }
+
+            $(this).closest('.form-inline').remove();
+
+
+
+        }
+		);
+	// Add button click
+	$(document).on(
+        'click',
+        '[data-role="dynamic-fields"] > .form-inline [data-role="add"]',
+        function (e) {
+
+                                        e.preventDefault();
+                                        whatbutton = $(this).attr('id');
+                                        if (whatbutton == "btnAgregarCliente") {
+                                            if (counterCliente < 5)
+                                            {
+                                                var container = $(this).closest('[data-role="dynamic-fields"]');
+                                                new_field_group = container.children().filter('.form-inline:first-child').clone();
+                                                new_field_group.find('input').each(function () {
+		                $(this).val('');
+                                                });
+                                                container.append(new_field_group);
+                                                counterCliente++;
+                                            }
+
+
+                                        }
+                                        else if (whatbutton == "btnAgregarProveedor") {
+                                            if (counterProveedor < 5)
+                                            {
+                                                var container = $(this).closest('[data-role="dynamic-fields"]');
+                                                new_field_group = container.children().filter('.form-inline:first-child').clone();
+                                                new_field_group.find('input').each(function () {
+		                $(this).val('');
+                                                });
+                                                container.append(new_field_group);
+                                                counterProveedor++;
+                                            }
+
+
+                                        }
+                                    }
+		);
+                                });
+</script>
+<script src="~/Scripts/romads.min.js"></script>
